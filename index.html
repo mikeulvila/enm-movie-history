@@ -9,11 +9,127 @@
 	  <link rel="stylesheet" type="text/css" href="styles/main.css">
 	</head>
 	<body>
+		<!-- FRAMEWORK for SPLASH PAGE -->
+		<div id="login-page">
+			<div class="wrapper">
+				<div class="container">
+					<h1>Welcome to Movie Time</h1>
+					<form class="form">
+						<input type="text" placeholder="Email">
+						<input type="password" placeholder="Password">
+						<button type="submit" id="register-button">Register</button>
+						<button type="submit" id="login-button">Login</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+
+		<!-- FRAMEWORK for MAIN PAGE -->
+
+		<div id="main-page">
+			<nav class="navbar navbar-default">
+			  	<div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+				    <div class="navbar-header">
+				      	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					        <span class="sr-only">Toggle navigation</span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					    </button>
+					    <a class="navbar-brand" href="#">Brand</a>
+				    </div>
+		
+				    <!-- Collect the nav links, forms, and other content for toggling -->
+				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li id="find-movies-button"><a href="#">Find Movies</a></li>
+							<li id="search-my-movies-button"><a href="#">Search My Movies</a></li>
+						</ul>
+				     
+				        <ul class="nav navbar-nav navbar-right">
+					        <li id="logout-button"><a href="#">Logout</a></li>
+				        </ul>
+				    </div><!-- /.navbar-collapse -->
+			    </div><!-- /.container-fluid -->
+			</nav>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-3">
+						<ul class="navbar-nav filter-links">
+							<li id="watched-filter-button"><a href="#">Watched</a></li>
+							<li> | </li>
+							<li id="unwatched-filter-button"><a href="#">Unwatched</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- FIND MOVIE MODAL -->
+
+				<div id="find-movies-modal" class="modal fade">
+				    <div class="modal-dialog">
+				        <div class="modal-content">
+					        <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        <h4 class="modal-title">Find Movies</h4>
+					        </div>
+					        <div class="modal-body">
+						        <form role="search">
+							        <div class="form-group">
+							            <input type="text" class="form-control" placeholder="Find">
+							        </div>
+							    </form>
+					        </div>
+					        <div class="modal-footer">
+						        <button type="button" class="btn btn-primary">Find</button>
+					        </div>
+					    </div><!-- /.modal-content -->
+				    </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+
+				<!-- SEARCH MY MOVIES MODAL -->
+
+				<div id="search-my-movies-modal" class="modal fade">
+				    <div class="modal-dialog">
+				        <div class="modal-content">
+					        <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        <h4 class="modal-title">Search My Movies</h4>
+					        </div>
+					        <div class="modal-body">
+						        <form role="search">
+							        <div class="form-group">
+							            <input type="text" class="form-control" placeholder="Search">
+							        </div>
+							    </form>
+					        </div>
+					        <div class="modal-footer">
+						        <button type="button" class="btn btn-primary">Search</button>
+					        </div>
+					    </div><!-- /.modal-content -->
+				    </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+
+
+
+	
+				<!-- DYNAMICALLY LOADED CONTENT below -->
+				<div id="template-container" class="row">
+	
+
+
+
+				</div>
+			</div>
+		</div>
 
 
 
 
 
-
+		<!-- END MAIN PAGE FRAMEWORK -->
+		<script data-main="javascripts/entry" src="lib/bower_components/requirejs/require.js"></script>
 	</body>
 </html>
