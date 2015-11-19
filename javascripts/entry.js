@@ -18,8 +18,8 @@ require.config({
 
 require(
   
-  ["jquery", "bootstrap"], 
-  function(_$_, bootstrap) {
+  ["jquery", "bootstrap", "login-app"], 
+  function(_$_, bootstrap, loginapp) {
 
     /*
       You can choose to use the REST methods to interact with
