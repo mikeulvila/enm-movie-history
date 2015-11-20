@@ -17,8 +17,8 @@
 					<form class="form">
 						<input id="user-email" type="text" placeholder="Email">
 						<input id="user-password" type="password" placeholder="Password">
-						<button type="submit" id="register-button">Register</button>
-						<button type="submit" id="login-button">Login</button>
+						<button id="register-button">Register</button>
+						<button id="login-button">Login</button>
 					</form>
 				</div>
 			</div>
@@ -28,7 +28,7 @@
 
 		<!-- FRAMEWORK for MAIN PAGE -->
 
-		<div id="main-page">
+		<div id="main-page" style="display: none">
 			<nav class="navbar navbar-default">
 			  	<div class="container-fluid">
 			    <!-- Brand and toggle get grouped for better mobile display -->
@@ -78,12 +78,12 @@
 					        <div class="modal-body">
 						        <form role="search">
 							        <div class="form-group">
-							            <input type="text" class="form-control" placeholder="Find">
+							            <input id="find-movies-search" type="text" class="form-control" placeholder="Find">
 							        </div>
 							    </form>
 					        </div>
 					        <div class="modal-footer">
-						        <button type="button" class="btn btn-primary">Find</button>
+						        <button id="submit-find-button" type="button" class="btn btn-primary">Find</button>
 					        </div>
 					    </div><!-- /.modal-content -->
 				    </div><!-- /.modal-dialog -->
