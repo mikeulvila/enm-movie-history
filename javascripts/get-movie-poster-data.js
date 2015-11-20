@@ -11,11 +11,16 @@ define(function(require) {
 
 				var searchURL = "http://img.omdbapi.com/?i=" + id + "&apikey=7c212437";
 
+				var templateObj = {
+									url: searchURL, 
+									imdbid: id
+								  }
+
 				require(['hbs!../templates/find-movies-results'], function(movieTemplate) {
-                  $("#template-container").append(movieTemplate(searchURL));
+                  $("#template-container").append(movieTemplate(templateObj));
                 });	
 		
-			})
+			});
 		}
 	};
 });
