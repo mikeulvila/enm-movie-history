@@ -6,7 +6,8 @@ require.config({
     'hbs': '../lib/bower_components/require-handlebars-plugin/hbs',
     'q': '../lib/bower_components/q/q',
     'bootstrap': '../lib/bower_components/bootstrap/dist/js/bootstrap.min',
-    'firebase': '../lib/bower_components/firebase/firebase'
+    'firebase': '../lib/bower_components/firebase/firebase',
+    'omdb': '../lib/node_modules/omdb'
   },
   shim: {
     'bootstrap': ['jquery'],
@@ -18,8 +19,8 @@ require.config({
 
 require(
   
-  ["jquery", "bootstrap", "login-app"], 
-  function(_$_, bootstrap, loginapp) {
+  ["jquery", "bootstrap", "login-app", "get-movie-data"], 
+  function(_$_, bootstrap, loginapp, getMovieData) {
 
     /*
       You can choose to use the REST methods to interact with
