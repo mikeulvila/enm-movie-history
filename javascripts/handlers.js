@@ -85,6 +85,9 @@ define(function(require) {
           addMovieToFirebase.pushData(addedMovieObj);
 
 
+        })
+        .fail(function(error){
+          console.log("it's fucked", error);
         });
     }); // end body click function
 

@@ -13,6 +13,7 @@ define(function(require) {
 			url: searchURL
 			}).done(function(data) {
 				console.log("it's done");
+				console.log("done data", data);
 				deferred.resolve(data);
 			})
 			.fail(function(error) {
