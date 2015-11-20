@@ -8,6 +8,7 @@ define(function(require) {
 
 			var deferred = Q.defer();
 			var parsedSearch = searchValue.replace(" ", "%");
+			
 			var searchURL = "http://www.omdbapi.com/?s=" + parsedSearch + "&";
 			$.ajax({
 			url: searchURL
