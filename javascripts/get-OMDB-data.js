@@ -2,11 +2,11 @@ define(function(require) {
 	var $ = require("jquery");
 	var Q = require("q");
 
-	var deferred = Q.defer();
 
 	return {
 		requestData: function(searchValue) {
 
+			var deferred = Q.defer();
 			var parsedSearch = searchValue.replace(" ", "%");
 			var searchURL = "http://www.omdbapi.com/?t=" + parsedSearch + "&";
 			$.ajax({
