@@ -9,5 +9,8 @@
     "grunt-contrib-uglify": "~0.5.0",
     "grunt-contrib-watch": "^0.6.1",
     "matchdep": "^0.3.0"
+  },
+  "dependencies": {
+    "omdb": "^0.5.0"
   }
 }
