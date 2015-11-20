@@ -6,6 +6,7 @@ define(function(require) {
 
 	return {
 		createNewUser: function(newEmail, newPassword) {
+			console.log("got in");
 			var ref = new Firebase("https://movie-history-enm.firebaseio.com/");
 			ref.createUser({
 			  email    : newEmail,

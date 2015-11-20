@@ -6,8 +6,7 @@ require.config({
     'hbs': '../lib/bower_components/require-handlebars-plugin/hbs',
     'q': '../lib/bower_components/q/q',
     'bootstrap': '../lib/bower_components/bootstrap/dist/js/bootstrap.min',
-    'firebase': '../lib/bower_components/firebase/firebase',
-    'omdb': '../lib/node_modules/omdb/index'
+    'firebase': '../lib/bower_components/firebase/firebase'
   },
   shim: {
     'bootstrap': ['jquery'],

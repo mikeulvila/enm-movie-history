@@ -4,7 +4,8 @@ define(function(require) {
 	var userLogin = require("existing-user-login");
 
 	// button to register new user
-	$("#register-button").click(function() {
+	$("#register-button").click(function(event) {
+		event.preventDefault();
 		var userEmail = $("#user-email").val();
 		var userPassword = $("#user-password").val();
 		authentication.createNewUser(userEmail, userPassword);
@@ -14,13 +15,15 @@ define(function(require) {
 	});
 
 	// button to login existing user
-	$("#login-button").click(function() {
+	$("#login-button").click(function(event) {
+		event.preventDefault();
 		var userEmail = $("#user-email").val();
 		var userPassword = $("#user-password").val();
 		userLogin.logUserIn(userEmail, userPassword);
 		// switching views
 		$("#main-page").show();
 		$("#login-page").hide();
+
 	});
 
 });

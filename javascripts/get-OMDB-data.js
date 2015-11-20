@@ -1,6 +1,5 @@
 define(function(require) {
 	var $ = require("jquery");
-	var omdb = require("omdb");
 	var Q = require("q");
 
 	var deferred = Q.defer();

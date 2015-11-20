@@ -3,5 +3,4 @@ define(function(require) {
 	var bootstrap = require("bootstrap");
 	var handlers = require("handlers");
 	var loginapp = require("login-app");
-	var omdb = require("omdb");
 });
