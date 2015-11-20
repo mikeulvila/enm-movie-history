@@ -78,7 +78,9 @@ define(function(require) {
           var addedMovieObj = {
             "title": data.Title,
             "year": data.Year,
-            "actors": data.Actors
+            "actors": data.Actors,
+            "watched": false,
+            "rating": 0
           };
 
 
