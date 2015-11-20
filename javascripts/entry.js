@@ -6,7 +6,8 @@ require.config({
     'hbs': '../lib/bower_components/require-handlebars-plugin/hbs',
     'q': '../lib/bower_components/q/q',
     'bootstrap': '../lib/bower_components/bootstrap/dist/js/bootstrap.min',
-    'firebase': '../lib/bower_components/firebase/firebase'
+    'firebase': '../lib/bower_components/firebase/firebase',
+    'omdb': '../lib/node_modules/omdb/index'
   },
   shim: {
     'bootstrap': ['jquery'],
@@ -18,8 +19,8 @@ require.config({
 
 require(
   
-  ["jquery", "bootstrap", "login-app"], 
-  function(_$_, bootstrap, loginapp) {
+  ["dependencies"], 
+  function(dependencies) {
 
     /*
       You can choose to use the REST methods to interact with
@@ -30,16 +31,6 @@ require(
       named `potential-mates.js`, and `add-favorite.js`.
      */
 
-
-    $("#find-movies-button").click(function() {
-      console.log("you clicked");
-      $("#find-movies-modal").modal("show");
-    });
-
-    $("#search-my-movies-button").click(function() {
-      console.log("you clicked");
-      $("#search-my-movies-modal").modal("show");
-    });
 
   }
 );

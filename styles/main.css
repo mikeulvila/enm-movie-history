@@ -1,9 +1,4 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
-ul {
-  list-style: none; }
-  ul .filter-links > li {
-    color: black; }
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -21,25 +16,13 @@ body ::-webkit-input-placeholder {
   color: white;
   font-weight: 300; }
 
-body :-moz-placeholder {
-  /* Mozilla Firefox 4 to 18 */
-  font-family: 'Source Sans Pro', sans-serif;
-  color: white;
-  opacity: 1;
-  font-weight: 300; }
+ul {
+  list-style: none; }
+  ul .filter-links > li {
+    color: black; }
 
-body ::-moz-placeholder {
-  /* Mozilla Firefox 19+ */
-  font-family: 'Source Sans Pro', sans-serif;
-  color: white;
-  opacity: 1;
-  font-weight: 300; }
-
-body :-ms-input-placeholder {
-  /* Internet Explorer 10+ */
-  font-family: 'Source Sans Pro', sans-serif;
-  color: white;
-  font-weight: 300; }
+.navbar {
+  border-radius: none; }
 
 .wrapper {
   background: #50a3a2;
@@ -81,8 +64,6 @@ form {
 
 form input {
   -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   outline: 0;
   border: 1px solid rgba(255, 255, 255, 0.4);
   background-color: rgba(255, 255, 255, 0.2);
@@ -106,8 +87,6 @@ form input:focus {
 
 form button {
   -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   outline: 0;
   background-color: white;
   border: 0;
@@ -115,6 +94,7 @@ form button {
   color: #53e3a6;
   border-radius: 3px;
   width: 250px;
+  margin-right: 4px;
   cursor: pointer;
   font-size: 18px;
   -webkit-transition-duration: 0.25s;
