@@ -2,6 +2,8 @@ define(function(require) {
 	var $ = require("jquery");
 	var getposter = require("get-movie-poster-data");
   var getmoviedata = require("get-movie-data");
+  var getaddedmoviedata = require("get-added-movie-data");
+  var addMovieToFirebase = require("add-movie-to-firebase");
 
 
   var authentication = require("authentication");
@@ -64,24 +66,44 @@ define(function(require) {
           });
           getposter.requestData(movieIDarray);
         });
-          
+    }); // end submit-find-button
 
-          // for (var obj in data.Search) {
-          //   console.log("obj", obj);
-          //   getposter.requestData(obj.imdbID)
-          //     .then(function(poster) {
-                
-                
-          //     });
-          // }
+    $("body").on("click", ".add-movie-to-collection", function(event) {
+      console.log("this id", this.id);
 
-        
-        //   .then(function(data) {
-        //     console.log("promise data", data);
-      		// });
-    });
+      getaddedmoviedata.requestData(this.id)
+        .then(function(data){
+          console.log("in-depth data", data);
 
-});
+          var addedMovieObj = {
+            "title": data.Title,
+            "year": data.Year,
+            "actors": data.Actors
+          };
+
+
+          addMovieToFirebase.pushData(addedMovieObj);
+
+
+        });
+    }); // end body click function
+
+}); // end define function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

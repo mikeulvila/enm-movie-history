@@ -3,7 +3,6 @@ define(function(require) {
 	var firebase = require("firebase");
 	var userLogin = require("existing-user-login");
 
-
 	return {
 		createNewUser: function(newEmail, newPassword) {
 			console.log("got in");

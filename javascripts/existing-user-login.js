@@ -3,6 +3,7 @@ define(function(require) {
 	var firebase = require("firebase");
 
 	var loggedinuser;
+	var currentUserId;
 
 	return {
 		logUserIn: function(userEmail, userPassword) {
@@ -16,6 +17,7 @@ define(function(require) {
 			    console.log("Login Failed!", error);
 			  } else {
 			    console.log("Authenticated successfully with payload:", authData);
+			    currentUserId = authData.uid;
 			    $("#main-page").show();
 				$("#login-page").hide();
 			  }
@@ -30,6 +32,9 @@ define(function(require) {
 				$("#login-page").show();
 
 			}
+		},
+		getUid: function() {
+			return currentUserId;
 		}
 	};
 });

@@ -6,7 +6,6 @@ define(function(require) {
 	return {
 		requestData: function(array) {
 
-			// var deferred = Q.defer();
 			array.forEach(function(id) {
 
 				var searchURL = "http://img.omdbapi.com/?i=" + id + "&apikey=7c212437";
@@ -14,7 +13,7 @@ define(function(require) {
 				var templateObj = {
 									url: searchURL, 
 									imdbid: id
-								  }
+								  };
 
 				require(['hbs!../templates/find-movies-results'], function(movieTemplate) {
                   $("#template-container").append(movieTemplate(templateObj));
