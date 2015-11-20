@@ -37,6 +37,12 @@ define(function(require) {
       $("#search-my-movies-modal").modal("show");
     });
 
+    $("#find-movies-search").keypress(function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+      }
+    });
+
     $("#submit-find-button").click(function() {
     	var value = $("#find-movies-search").val();
     	console.log("val", value);
