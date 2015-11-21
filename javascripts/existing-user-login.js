@@ -21,6 +21,8 @@ define(function(require) {
 			    $("#main-page").show();
 				$("#login-page").hide();
 			  }
+			}, {
+				remember: "default"
 			});
 		},
 		logUserOut: function() {
