@@ -2,13 +2,12 @@ define(function(require) {
 	var $ = require("jquery");
 	var firebase = require("firebase");
 
-	var loggedinuser;
+	// var loggedinuser;
 	var currentUserId;
-
 	return {
 		logUserIn: function(userEmail, userPassword) {
 			var ref = new Firebase("https://movie-history-enm.firebaseio.com/");
-			loggedinuser = ref;
+			// loggedinuser = ref;
 			ref.authWithPassword({
 			  email    : userEmail,
 			  password : userPassword
@@ -21,14 +20,13 @@ define(function(require) {
 			    $("#main-page").show();
 				$("#login-page").hide();
 			  }
-			}, {
-				remember: "default"
 			});
 		},
 		logUserOut: function() {
-			console.log("loggedinuser", loggedinuser);
-			loggedinuser.unauth();
-			if (loggedinuser.getAuth() === null) {
+			// console.log("loggedinuser", loggedinuser);
+			var ref = new Firebase("https://movie-history-enm.firebaseio.com/");
+			ref.unauth();
+			if (ref.getAuth() === null) {
 				console.log("logged out");
 				$("#main-page").hide();
 				$("#login-page").show();
