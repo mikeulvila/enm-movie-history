@@ -83,8 +83,9 @@ define(function(require) {
             "rating": 0
           };
 
+          var addedMovieId = data.imdbID;
 
-          addMovieToFirebase.pushData(addedMovieObj);
+          addMovieToFirebase.pushData(addedMovieId, addedMovieObj);
 
 
         })
