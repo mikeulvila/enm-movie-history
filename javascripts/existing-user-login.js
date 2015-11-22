@@ -1,9 +1,11 @@
 define(function(require) {
 	var $ = require("jquery");
 	var firebase = require("firebase");
+	var getaddedmoviedata = require("get-added-movie-data");
 
 	var loggedinuser;
 	var currentUserId;
+	var userEmailAddy;
 
 	return {
 		logUserIn: function(userEmail, userPassword) {
@@ -18,8 +20,12 @@ define(function(require) {
 			  } else {
 			    console.log("Authenticated successfully with payload:", authData);
 			    currentUserId = authData.uid;
+			    userEmailAddy = userEmail;
+			    getaddedmoviedata.getUsersAddedMovies(userEmail);
 			    $("#main-page").show();
-				$("#login-page").hide();
+					$("#login-page").hide();
+					$("#my-movies-page").hide();
+
 			  }
 			});
 		},
@@ -35,6 +41,9 @@ define(function(require) {
 		},
 		getUid: function() {
 			return currentUserId;
+		},
+		getUserEmailAddy: function () {
+			return userEmailAddy;
 		}
 	};
 });

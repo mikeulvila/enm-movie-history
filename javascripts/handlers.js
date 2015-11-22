@@ -2,15 +2,15 @@ define(function(require) {
 	var $ = require("jquery");
 	var getposter = require("get-movie-poster-data");
   var getmoviedata = require("get-movie-data");
-  var getaddedmoviedata = require("get-added-movie-data");
+  
   var addMovieToFirebase = require("add-movie-to-firebase");
+  var getaddedmoviedata = require("get-added-movie-data");
 
 
   var authentication = require("authentication");
   var userLogin = require("existing-user-login");
- 
 
-
+  
     // button to register new user
     $("#register-button").click(function(event) {
       event.preventDefault();
@@ -49,11 +49,23 @@ define(function(require) {
       }
     });
 
+    //show my movies page on click:
+
+    $("#my-movies-page-button").click(function() {
+      console.log("you want to go to the my movies page!");
+      $("#my-movies-page").show();
+      $("#template-container").hide();
+
+    });
+
+
     // submit find button on find movies modal
     $("#submit-find-button").click(function() {
     	var value = $("#find-movies-search").val();
     	console.log("val", value);
       var movieIDarray = [];
+
+      $("#template-container").html("");
 
       getmoviedata.requestData(value)
         .then(function(data) {
@@ -66,10 +78,18 @@ define(function(require) {
           });
           getposter.requestData(movieIDarray);
         });
+        $("#search-my-movies-modal").modal("hide");
+        $("#template-container").show();
+        $("#my-movies-page").hide();
     }); // end submit-find-button
+
+    //add movie button adds given movie to firebase collection:
 
     $("body").on("click", ".add-movie-to-collection", function(event) {
       console.log("this id", this.id);
+      console.log("this", event.target.parentElement.id);
+
+      var addedMoviePoster = event.target.parentElement.id;
 
       getaddedmoviedata.requestData(this.id)
         .then(function(data){
@@ -80,7 +100,8 @@ define(function(require) {
             "year": data.Year,
             "actors": data.Actors,
             "watched": false,
-            "rating": 0
+            "rating": 0,
+            "poster": addedMoviePoster
           };
 
 
