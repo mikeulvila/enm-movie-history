@@ -16,6 +16,10 @@ body ::-webkit-input-placeholder {
   color: white;
   font-weight: 300; }
 
+.dynamic {
+  max-width: 80%;
+  margin: 10px auto 0; }
+
 ul {
   list-style: none; }
   ul .filter-links > li {
@@ -23,6 +27,30 @@ ul {
 
 .navbar {
   border-radius: none; }
+
+#template-container > .col-sm-4 {
+  text-align: center; }
+
+.img {
+  box-shadow: 0px 0px 8px 0px #444444; }
+
+.add-movie-to-collection {
+  -webkit-appearance: none;
+  outline: 0;
+  background-color: #53e3a6;
+  border: 0;
+  padding: 10px 15px;
+  color: white;
+  border-radius: 3px;
+  width: 150px;
+  margin: 7px 0 25px 0;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-transition-duration: 0.25s;
+  transition-duration: 0.25s; }
+
+.add-movie-to-collection:hover {
+  background-color: #f5f7f9; }
 
 .wrapper {
   background: #50a3a2;
