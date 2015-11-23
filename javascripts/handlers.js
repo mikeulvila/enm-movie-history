@@ -5,6 +5,7 @@ define(function(require) {
   var getaddedmoviedata = require("get-added-movie-data");
   var addMovieToFirebase = require("add-movie-to-firebase");
   var searchMyMovies = require("search-my-movies");
+  var filterSearch = require("combine-firebase-api-data");
 
 
   var authentication = require("authentication");
@@ -54,21 +55,20 @@ define(function(require) {
         searchMyMovies(userid, value)
           .then(function(data) {
             // searchedData will equal movies user has added
-            searchedData = data;
-            console.log("searchedData", data);
+            // searchedData = data;
+            searchedData = Object.keys( data ).map(function(key) { return data[key]});
+            console.log("searchedData", searchedData);
             //searching API for all movies that contain search value
             getmoviedata.requestData(value)
           .then(function(data) {
-            console.log("API data ---", data.Search);
-            // var filtered = _.filter(data, function(obj) {
-            //   if (_.includes(obj.title.toLowerCase(), searchVal.toLowerCase())) {
-            //     console.log("obj includes", obj.title);
-            //     return obj;
-            //   }
-            // });
+            var apiData = data.Search;
+            console.log("API data ---", apiData);
+            var combinedArray = filterSearch(searchedData, apiData);
+            console.log("combinedArray", combinedArray);
 
-            console.log("get movie data", data);
-            console.log("data search", data.Search);
+            // console.log("searchedData after filter", searchedData);
+            // console.log("apiData after filter", apiData);
+            // console.log("data search", data.Search);
             $.each(data.Search, function(index, value){
               console.log("each function -- ", value.imdbID);
               movieIDarray.push(value.imdbID);
