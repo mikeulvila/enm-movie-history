@@ -34,60 +34,66 @@ define(function(require) {
     });
 
   	// -------- FIND MOVIES Nav button, search input in modal and submit search value ------//
-  	// nav button
-    $("#find-movies-button").click(function() {
-        console.log("you clicked");
-        $("#find-movies-modal").modal("show");
-    });
+
     // preventing default form submit on input field
-    $("#find-movies-search").keypress(function(event) {
+    $("#search-field").keypress(function(event) {
       if (event.keyCode === 13) {
         event.preventDefault();
-      }
-    });
 
-    // submit find button on find movies modal
-    $("#submit-find-button").click(function() {
-      var value = $("#find-movies-search").val();
-      console.log("val", value);
-      var movieIDarray = [];
 
-      getmoviedata.requestData(value)
-        .then(function(data) {
-          console.log("get movie data", data);
-          console.log("data search", data.Search);
-          $.each(data.Search, function(index, value){
-            console.log("each function -- ", value.imdbID);
-            movieIDarray.push(value.imdbID);
-            console.log("movieIDarray", movieIDarray);
+        var movieIDarray = [];
+
+        var userid = userLogin.getUid();
+        var value = $("#search-field").val();
+
+        console.log("value----", value);
+
+
+        var searchedData;
+
+        searchMyMovies(userid, value)
+          .then(function(data) {
+            // searchedData will equal movies user has added
+            searchedData = data;
+            console.log("searchedData", data);
+            //searching API for all movies that contain search value
+            getmoviedata.requestData(value)
+          .then(function(data) {
+            console.log("API data ---", data.Search);
+            // var filtered = _.filter(data, function(obj) {
+            //   if (_.includes(obj.title.toLowerCase(), searchVal.toLowerCase())) {
+            //     console.log("obj includes", obj.title);
+            //     return obj;
+            //   }
+            // });
+
+            console.log("get movie data", data);
+            console.log("data search", data.Search);
+            $.each(data.Search, function(index, value){
+              console.log("each function -- ", value.imdbID);
+              movieIDarray.push(value.imdbID);
+              console.log("movieIDarray", movieIDarray);
+            });
+            getposter.requestData(movieIDarray);
+            
           });
-          getposter.requestData(movieIDarray);
-        });
-    }); // end submit-find-button
 
+            
+          });
 
-
-    // ------------ SEARCH MY MOVIES nav, input field and submit input value ---//
-    // nav button
-    $("#search-my-movies-button").click(function() {
-      console.log("you clicked");
-      $("#search-my-movies-modal").modal("show");
-    });
-    // preventing default form submit on input field
-    $("#my-movies-search").keypress(function(event) {
-      if (event.keyCode === 13) {
-        event.preventDefault();
       }
     });
-    // submit search button in modal
-    $("#submit-search-my-movies").click(function(){
-      var userid = userLogin.getUid();
-      var value = $("#my-movies-search").val();
-
-      searchMyMovies.myMovies(userid, value);
 
 
-    });
+
+
+
+
+
+
+
+
+
 
 
 
