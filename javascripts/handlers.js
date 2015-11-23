@@ -4,6 +4,7 @@ define(function(require) {
   var getmoviedata = require("get-movie-data");
   var getaddedmoviedata = require("get-added-movie-data");
   var addMovieToFirebase = require("add-movie-to-firebase");
+  var searchMyMovies = require("search-my-movies");
 
 
   var authentication = require("authentication");
@@ -32,17 +33,13 @@ define(function(require) {
       userLogin.logUserOut();
     });
 
-  	// NAV BAR search button handlers
-  	$("#find-movies-button").click(function() {
+  	// -------- FIND MOVIES Nav button, search input in modal and submit search value ------//
+  	// nav button
+    $("#find-movies-button").click(function() {
         console.log("you clicked");
         $("#find-movies-modal").modal("show");
     });
-
-    $("#search-my-movies-button").click(function() {
-      console.log("you clicked");
-      $("#search-my-movies-modal").modal("show");
-    });
-
+    // preventing default form submit on input field
     $("#find-movies-search").keypress(function(event) {
       if (event.keyCode === 13) {
         event.preventDefault();
@@ -51,8 +48,8 @@ define(function(require) {
 
     // submit find button on find movies modal
     $("#submit-find-button").click(function() {
-    	var value = $("#find-movies-search").val();
-    	console.log("val", value);
+      var value = $("#find-movies-search").val();
+      console.log("val", value);
       var movieIDarray = [];
 
       getmoviedata.requestData(value)
@@ -68,25 +65,49 @@ define(function(require) {
         });
     }); // end submit-find-button
 
-    $("body").on("click", ".add-movie-to-collection", function(event) {
-      console.log("this id", this.id);
+
+
+    // ------------ SEARCH MY MOVIES nav, input field and submit input value ---//
+    // nav button
+    $("#search-my-movies-button").click(function() {
+      console.log("you clicked");
+      $("#search-my-movies-modal").modal("show");
+    });
+    // preventing default form submit on input field
+    $("#my-movies-search").keypress(function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+      }
+    });
+    // submit search button in modal
+    $("#submit-search-my-movies").click(function(){
       var userid = userLogin.getUid();
+      var value = $("#my-movies-search").val();
+
+      searchMyMovies.myMovies(userid, value);
+
+
+    });
+
+
+
+
+    $("body").on("click", ".add-movie-to-collection", function(event) {
+      console.log("this poster", $(this).attr('poster'));
+      var userid = userLogin.getUid();
+      var posterURL = $(this).attr('poster');
       getaddedmoviedata.requestData(this.id)
         .then(function(data){
           console.log("in-depth data", data);
-
           var addedMovieObj = {
             "title": data.Title,
             "year": data.Year,
             "actors": data.Actors,
             "watched": false,
-            "rating": 0
+            "rating": 0,
+            "url" : posterURL
           };
-
-
           addMovieToFirebase.pushData(userid, addedMovieObj);
-
-
         })
         .fail(function(error){
           console.log("it's fucked", error);
