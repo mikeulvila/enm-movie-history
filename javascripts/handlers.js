@@ -70,7 +70,7 @@ define(function(require) {
 
     $("body").on("click", ".add-movie-to-collection", function(event) {
       console.log("this id", this.id);
-
+      var userid = userLogin.getUid();
       getaddedmoviedata.requestData(this.id)
         .then(function(data){
           console.log("in-depth data", data);
@@ -84,7 +84,7 @@ define(function(require) {
           };
 
 
-          addMovieToFirebase.pushData(addedMovieObj);
+          addMovieToFirebase.pushData(userid, addedMovieObj);
 
 
         })

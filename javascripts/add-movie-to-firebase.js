@@ -6,8 +6,8 @@ define(function(require) {
 
 
 	return {
-		pushData: function(addedMovieObj) {
-			var userid = login.getUid();
+		pushData: function(userid, addedMovieObj) {
+			
 			console.log("userid-----", userid);
 
 			var newRef = new Firebase("https://movie-history-enm.firebaseio.com/collections/" + userid);

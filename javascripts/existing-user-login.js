@@ -3,7 +3,7 @@ define(function(require) {
 	var firebase = require("firebase");
 
 	// var loggedinuser;
-	var currentUserId;
+	// var currentUserId;
 	return {
 		logUserIn: function(userEmail, userPassword) {
 			var ref = new Firebase("https://movie-history-enm.firebaseio.com/");
@@ -16,7 +16,7 @@ define(function(require) {
 			    console.log("Login Failed!", error);
 			  } else {
 			    console.log("Authenticated successfully with payload:", authData);
-			    currentUserId = authData.uid;
+			    // currentUserId = authData.uid;
 			    $("#main-page").show();
 				$("#login-page").hide();
 			  }
@@ -34,7 +34,10 @@ define(function(require) {
 			}
 		},
 		getUid: function() {
-			return currentUserId;
+			var ref = new Firebase("https://movie-history-enm.firebaseio.com/");
+			var authData = ref.getAuth();
+			var thisUser = authData.uid;
+			return thisUser;
 		}
 	};
 });
