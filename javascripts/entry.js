@@ -19,7 +19,7 @@ require.config({
 require(
   
   ["dependencies"], 
-  function(_$_) {
+  function(dependencies) {
 
     /*
       You can choose to use the REST methods to interact with
@@ -29,6 +29,7 @@ require(
       If you choose the former, I created two boilerplate modules
       named `potential-mates.js`, and `add-favorite.js`.
      */
+
 
   }
 );
