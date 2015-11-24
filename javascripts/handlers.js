@@ -10,6 +10,7 @@ define(function(require) {
   var userLogin = require("existing-user-login");
   var _ = require("lodash");
   var starRating = require("star-rating");
+  var watchedButton = require("watched-button");
  
 
 
@@ -141,7 +142,17 @@ $(document).on('rating.change', function(event, starValue) {
   });//--end star rating
 
 //********************** WATCHED BUTTON *******************
+$(document).on('click', '.watched', function(event) {
 
+    console.log("event.target", event.target);
+
+    var userid = userLogin.getUid();
+    var movieID = event.target.id;
+    console.log("movieID", movieID);
+    console.log("userid", userid);
+    watchedButton(userid, movieID);
+
+  });//--end star rating
 
 
 
