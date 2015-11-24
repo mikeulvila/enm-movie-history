@@ -6,13 +6,13 @@ define(function(require) {
 
 
 	return {
-		pushData: function(userid, addedMovieObj) {
+		pushData: function(userid, movieID, addedMovieObj) {
 			
 			console.log("userid-----", userid);
 
 			var newRef = new Firebase("https://movie-history-enm.firebaseio.com/collections/" + userid);
 			console.log("newRef", newRef);
-			newRef.push(addedMovieObj);
+			newRef.child(movieID).set(addedMovieObj);
 		}
 	};
 });

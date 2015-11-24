@@ -9,6 +9,7 @@ define(function(require) {
   var authentication = require("authentication");
   var userLogin = require("existing-user-login");
   var _ = require("lodash");
+  var starRating = require("star-rating");
  
 
 
@@ -100,7 +101,7 @@ define(function(require) {
 
 
 
-
+//************ ADD MOVIE TO COLLECTION ******************
     $("body").on("click", ".add-movie-to-collection", function(event) {
       console.log("this poster", $(this).attr('poster'));
       var userid = userLogin.getUid();
@@ -117,12 +118,40 @@ define(function(require) {
             "url" : posterURL,
             "imdbID" : data.imdbID
           };
-          addMovieToFirebase.pushData(userid, addedMovieObj);
+          addMovieToFirebase.pushData(userid, data.imdbID, addedMovieObj);
         })
         .fail(function(error){
           console.log("it's fucked", error);
         });
     }); // end body click function
+
+
+//********************** STAR RATING ***********************
+$(document).on('rating.change', function(event, starValue) {
+
+    console.log("starValue", starValue);
+    console.log("event.target", event.target);
+
+    var userid = userLogin.getUid();
+    var movieID = event.target.id;
+    console.log("movieID", movieID);
+    console.log("userid", userid);
+    starRating(userid, movieID, starValue);
+
+  });//--end star rating
+
+//********************** WATCHED BUTTON *******************
+
+
+
+
+
+
+
+
+
+
+
 
 }); // end define function
 
