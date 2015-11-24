@@ -9,7 +9,14 @@ define(function(require) {
 	return function (userid, searchVal) {
 			var ref = new Firebase("https://movie-history-enm.firebaseio.com/collections/" + userid);
 			ref.on("value", function(snapshot) {
-				deferred.resolve(snapshot.val());
+				var collectionsRef = snapshot.val();
+				var filtered = _.filter(collectionsRef, function(obj) {
+					if (_.includes(obj.Title.toLowerCase(), searchVal.toLowerCase())) {
+						console.log("obj includes", obj.Title);
+						return obj;
+					}
+				});
+				deferred.resolve(filtered);
 			});
 			return deferred.promise;
 		};

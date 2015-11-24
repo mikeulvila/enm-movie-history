@@ -55,31 +55,40 @@ define(function(require) {
         searchMyMovies(userid, value)
           .then(function(data) {
             // searchedData will equal movies user has added
-            // searchedData = data;
-            searchedData = Object.keys( data ).map(function(key) { return data[key]});
-            console.log("searchedData", searchedData);
-            //searching API for all movies that contain search value
-            getmoviedata.requestData(value)
-          .then(function(data) {
-            var apiData = data.Search;
-            console.log("API data ---", apiData);
-            var combinedArray = filterSearch(searchedData, apiData);
-            console.log("combinedArray", combinedArray);
+            console.log("data", data);
+            // if there are no movies in the users database, just get movies from API
+            if (data === null) {
+              getmoviedata.requestData(value)
+              .then(function(data1) {
+                console.log("data1", data1);
+                $.each(data1.Search, function(index, value){
+                movieIDarray.push(value.imdbID);
+                }); //--end $.each
+                getposter.requestData(movieIDarray);
+              })
+            } else {
+              searchedData = Object.keys( data ).map(function(key) { return data[key]});
+              console.log("searchedData", searchedData);
+              //searching API for all movies that contain search value
+              getmoviedata.requestData(value)
+            .then(function(data) {
+              var apiData = data.Search;
+              console.log("API data ---", apiData);
+              var combinedArray = filterSearch(searchedData, apiData);
+              console.log("combinedArray", combinedArray);
 
-            // console.log("searchedData after filter", searchedData);
-            // console.log("apiData after filter", apiData);
-            // console.log("data search", data.Search);
-            $.each(data.Search, function(index, value){
-              console.log("each function -- ", value.imdbID);
-              movieIDarray.push(value.imdbID);
-              console.log("movieIDarray", movieIDarray);
-            });
-            getposter.requestData(movieIDarray);
-            
-          });
+              $.each(data.Search, function(index, value){
+                console.log("each function -- ", value.imdbID);
+                movieIDarray.push(value.imdbID);
+                console.log("movieIDarray", movieIDarray);
+              }); //--end $.each
+              getposter.requestData(movieIDarray);
+              
+              }); //--end 2nd .then statement
+            } //--end else
 
             
-          });
+          }); //--end 1st .then statement
 
       }
     });
@@ -106,12 +115,13 @@ define(function(require) {
         .then(function(data){
           console.log("in-depth data", data);
           var addedMovieObj = {
-            "title": data.Title,
-            "year": data.Year,
-            "actors": data.Actors,
-            "watched": false,
-            "rating": 0,
-            "url" : posterURL
+            "Title": data.Title,
+            "Year": data.Year,
+            "Actors": data.Actors,
+            "Watched": false,
+            "Rating": 0,
+            "url" : posterURL,
+            "imdbID" : data.imdbID
           };
           addMovieToFirebase.pushData(userid, addedMovieObj);
         })

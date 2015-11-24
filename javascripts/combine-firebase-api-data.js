@@ -5,7 +5,7 @@ define(function(require) {
 return function movieGetter(firebaseArray, apiArray) {
 
 	var titlesArray = firebaseArray.map(function(movie) {
-		return movie.title;
+		return movie.Title;
 	});
 
 	var filteredArray = apiArray.filter(function(elFromAPI) {
