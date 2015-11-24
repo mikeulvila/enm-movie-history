@@ -121,11 +121,11 @@ define(function(require) {
         });
     }); // end body click function
 
-//********* NAV LINK HANDLERS ******
+//********* NAV LINK EVENT HANDLERS ******
 
     $("#all-filter-button").click(function() {
       var userid = userLogin.getUid();
-      populateAllPage(userid);
+      populateAllPage(userid); //calls "get-users-movie-collection" module
     });
 
 
