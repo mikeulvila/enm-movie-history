@@ -1,6 +1,7 @@
 define(function(require) {
 	var $ = require("jquery");
 	var firebase = require("firebase");
+	var populateAllPage = require("get-users-movie-collection");
 
 
 function authDataCallback(authData) {
@@ -8,6 +9,7 @@ function authDataCallback(authData) {
     console.log("User " + authData.uid + " is logged in with " + authData.provider);
     $("#main-page").show();
 	$("#login-page").hide();
+	populateAllPage(authData.uid);
   } else {
     console.log("User is logged out");
   }

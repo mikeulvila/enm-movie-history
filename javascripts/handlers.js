@@ -10,6 +10,8 @@ define(function(require) {
   var userLogin = require("existing-user-login");
   var _ = require("lodash");
   var starRating = require("star-rating");
+  var populateAllPage = require("get-users-movie-collection");
+
  
 
 
@@ -99,9 +101,8 @@ define(function(require) {
 
 
 
-
-
 //************ ADD MOVIE TO COLLECTION ******************
+
     $("body").on("click", ".add-movie-to-collection", function(event) {
       console.log("this poster", $(this).attr('poster'));
       var userid = userLogin.getUid();
@@ -150,10 +151,19 @@ $(document).on('rating.change', function(event, starValue) {
 
 
 
+//********* NAV LINK EVENT HANDLERS ******
+
+    $("#all-filter-button").click(function() {
+      var userid = userLogin.getUid();
+      populateAllPage(userid); //calls "get-users-movie-collection" module
+    });
 
 
 
 }); // end define function
+
+
+
 
 
 
