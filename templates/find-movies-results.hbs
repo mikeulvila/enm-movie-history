@@ -1,9 +1,18 @@
-
+{{#each movies}}
 <div class="col-sm-4">
 	<div class="row">
 		<img class="img" src="{{url}}" alt="poster img">
 	</div>
 	<div class="row">
-		<button id="{{imdbid}}" poster="{{url}}" class="add-movie-to-collection">Add</button>
+		{{#if Type}}
+		<button id="{{imdbID}}" poster="{{url}}" class="add-movie-to-collection">Add</button>
+		{{else}}
+			{{#if Watched}}
+			<button id="{{imdbID}}" poster="{{url}}" class="add-movie-to-collection">Star Rating</button>
+			{{else}}
+			<button id="{{imdbID}}" poster="{{url}}" class="add-movie-to-collection">Watched</button>
+			{{/if}}
+		{{/if}}
 	</div>
 </div>
+{{/each}}

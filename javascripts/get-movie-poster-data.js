@@ -6,20 +6,29 @@ define(function(require) {
 	return {
 		requestData: function(array) {
 
-			array.forEach(function(id) {
+			var templateArray = array.map(function(obj) {
+				// console.log("combinedArray obj", obj);
+				if (obj.url) {
+					return obj;
+				} else {
+					obj.url = "http://img.omdbapi.com/?i=" + obj.imdbID + "&apikey=7c212437";
+					return obj;
+				}
 
-				var searchURL = "http://img.omdbapi.com/?i=" + id + "&apikey=7c212437";
+				// var searchURL = "http://img.omdbapi.com/?i=" + id + "&apikey=7c212437";
 
-				var templateObj = {
-									url: searchURL, 
-									imdbid: id
-								  };
+				// var templateObj = {
+				// 					url: searchURL, 
+				// 					imdbid: id
+				// 				  };
 
-				require(['hbs!../templates/find-movies-results'], function(movieTemplate) {
-                  $("#template-container").append(movieTemplate(templateObj));
-                });	
 		
 			});
+			require(['hbs!../templates/find-movies-results'], function(movieTemplate) {
+                  $("#template-container").html(movieTemplate({movies:templateArray}));
+                });	
+
+			console.log("templateArray", templateArray);
 		}
 	};
 });

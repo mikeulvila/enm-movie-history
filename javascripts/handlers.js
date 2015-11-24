@@ -77,12 +77,12 @@ define(function(require) {
               var combinedArray = filterSearch(searchedData, apiData);
               console.log("combinedArray", combinedArray);
 
-              $.each(data.Search, function(index, value){
-                console.log("each function -- ", value.imdbID);
-                movieIDarray.push(value.imdbID);
-                console.log("movieIDarray", movieIDarray);
-              }); //--end $.each
-              getposter.requestData(movieIDarray);
+              // $.each(combinedArray, function(index, value){
+              //   console.log("each function -- ", value.imdbID);
+              //   movieIDarray.push(value.imdbID);
+              //   console.log("movieIDarray", movieIDarray);
+              // }); //--end $.each
+              getposter.requestData(combinedArray);
               
               }); //--end 2nd .then statement
             } //--end else
