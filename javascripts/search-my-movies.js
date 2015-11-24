@@ -4,9 +4,9 @@ define(function(require) {
 	var _ = require("lodash");
 	var firebase = require("firebase");
 
-	var deferred = Q.defer();
 
 	return function (userid, searchVal) {
+	var deferred = Q.defer();
 			var ref = new Firebase("https://movie-history-enm.firebaseio.com/collections/" + userid);
 			ref.on("value", function(snapshot) {
 				var collectionsRef = snapshot.val();
@@ -16,6 +16,7 @@ define(function(require) {
 						return obj;
 					}
 				});
+				console.log("FilteredArray", filtered);
 				deferred.resolve(filtered);
 			});
 			return deferred.promise;
