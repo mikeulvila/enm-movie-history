@@ -16,7 +16,7 @@ return function movieGetter(firebaseArray, apiArray) {
 		    }
 		  });
 	return firebaseArray.concat(filteredArray);
-		}
+		};
 });
 
 // var thing = "Here's Some text that's nice!";

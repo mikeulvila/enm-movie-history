@@ -6,10 +6,9 @@ define(function(require) {
   var addMovieToFirebase = require("add-movie-to-firebase");
   var searchMyMovies = require("search-my-movies");
   var filterSearch = require("combine-firebase-api-data");
-
-
   var authentication = require("authentication");
   var userLogin = require("existing-user-login");
+  var _ = require("lodash");
  
 
 
@@ -65,9 +64,9 @@ define(function(require) {
                 movieIDarray.push(value.imdbID);
                 }); //--end $.each
                 getposter.requestData(movieIDarray);
-              })
+              });
             } else {
-              searchedData = Object.keys( data ).map(function(key) { return data[key]});
+              searchedData = Object.keys( data ).map(function(key) { return data[key];});
               console.log("searchedData", searchedData);
               //searching API for all movies that contain search value
               getmoviedata.requestData(value)
@@ -77,12 +76,15 @@ define(function(require) {
               var combinedArray = filterSearch(searchedData, apiData);
               console.log("combinedArray", combinedArray);
 
+              var sortedResults = _.sortBy(combinedArray, "Title");
+              console.log("sortedResults", sortedResults);
+
               // $.each(combinedArray, function(index, value){
               //   console.log("each function -- ", value.imdbID);
               //   movieIDarray.push(value.imdbID);
               //   console.log("movieIDarray", movieIDarray);
               // }); //--end $.each
-              getposter.requestData(combinedArray);
+              getposter.requestData(sortedResults);
               
               }); //--end 2nd .then statement
             } //--end else
@@ -92,14 +94,6 @@ define(function(require) {
 
       }
     });
-
-
-
-
-
-
-
-
 
 
 
