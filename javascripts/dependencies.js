@@ -6,4 +6,5 @@ define(function(require) {
 	var loggedOrNot = require("logged-in-or-not");
 	var stars = require("stars");
 	var starRating = require("star-rating");
+	var watchedButton = require("watched-button");
 });

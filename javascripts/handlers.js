@@ -11,8 +11,7 @@ define(function(require) {
   var _ = require("lodash");
   var starRating = require("star-rating");
   var populateAllPage = require("get-users-movie-collection");
-
- 
+  var watchedButton = require("watched-button");
 
 
     // button to register new user
@@ -142,7 +141,17 @@ $(document).on('rating.change', function(event, starValue) {
   });//--end star rating
 
 //********************** WATCHED BUTTON *******************
+$(document).on('click', '.watched', function(event) {
 
+    console.log("event.target", event.target);
+
+    var userid = userLogin.getUid();
+    var movieID = event.target.id;
+    console.log("movieID", movieID);
+    console.log("userid", userid);
+    watchedButton(userid, movieID);
+
+  });//--end star rating
 
 
 
