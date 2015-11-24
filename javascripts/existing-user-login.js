@@ -1,6 +1,7 @@
 define(function(require) {
 	var $ = require("jquery");
 	var firebase = require("firebase");
+	var populateAllPage = require("get-users-movie-collection");
 
 	// var loggedinuser;
 	// var currentUserId;
@@ -16,9 +17,11 @@ define(function(require) {
 			    console.log("Login Failed!", error);
 			  } else {
 			    console.log("Authenticated successfully with payload:", authData);
-			    // currentUserId = authData.uid;
+			    currentUserId = authData.uid;
 			    $("#main-page").show();
-				$("#login-page").hide();
+					$("#login-page").hide();
+					populateAllPage(currentUserId);
+
 			  }
 			});
 		},

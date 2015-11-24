@@ -9,6 +9,7 @@ define(function(require) {
   var authentication = require("authentication");
   var userLogin = require("existing-user-login");
   var _ = require("lodash");
+  var populateAllPage = require("get-users-movie-collection");
  
 
 
@@ -97,10 +98,6 @@ define(function(require) {
 
 
 
-
-
-
-
     $("body").on("click", ".add-movie-to-collection", function(event) {
       console.log("this poster", $(this).attr('poster'));
       var userid = userLogin.getUid();
@@ -124,7 +121,18 @@ define(function(require) {
         });
     }); // end body click function
 
+//********* NAV LINK HANDLERS ******
+
+    $("#all-filter-button").click(function() {
+      var userid = userLogin.getUid();
+      populateAllPage(userid);
+    });
+
+
 }); // end define function
+
+
+
 
 
 
