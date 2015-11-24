@@ -1,6 +1,7 @@
 define(function(require) {
 	var $ = require("jquery");
 	var Q = require("q");
+	var stars = require("stars");
 
 
 	return {
@@ -14,18 +15,11 @@ define(function(require) {
 					obj.url = "http://img.omdbapi.com/?i=" + obj.imdbID + "&apikey=7c212437";
 					return obj;
 				}
-
-				// var searchURL = "http://img.omdbapi.com/?i=" + id + "&apikey=7c212437";
-
-				// var templateObj = {
-				// 					url: searchURL, 
-				// 					imdbid: id
-				// 				  };
-
 		
 			});
 			require(['hbs!../templates/find-movies-results'], function(movieTemplate) {
                   $("#template-container").html(movieTemplate({movies:templateArray}));
+                  $(".rating").rating();
                 });	
 
 			console.log("templateArray", templateArray);

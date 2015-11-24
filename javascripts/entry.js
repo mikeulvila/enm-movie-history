@@ -6,10 +6,12 @@ require.config({
     'hbs': '../lib/bower_components/require-handlebars-plugin/hbs',
     'q': '../lib/bower_components/q/q',
     'bootstrap': '../lib/bower_components/bootstrap/dist/js/bootstrap.min',
-    'firebase': '../lib/bower_components/firebase/firebase'
+    'firebase': '../lib/bower_components/firebase/firebase',
+    'stars': '../lib/bower_components/bootstrap-star-rating/js/star-rating.min'
   },
   shim: {
     'bootstrap': ['jquery'],
+    'stars': ['bootstrap'],
     'firebase': {
       exports: 'Firebase'
     }

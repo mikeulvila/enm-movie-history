@@ -4,4 +4,5 @@ define(function(require) {
 	var _ = require("lodash");
 	var handlers = require("handlers");
 	var loggedOrNot = require("logged-in-or-not");
+	var stars = require("stars");
 });
