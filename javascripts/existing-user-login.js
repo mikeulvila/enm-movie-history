@@ -22,7 +22,8 @@ define(function(require) {
 				populateAllPage(currentUserId)
         			.then(function(data) {
           				var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
-          				getposter.requestData(allUserMovies);
+          				var sortedResults = _.sortBy(allUserMovies, "Title");
+          				getposter.requestData(sortedResults);
         		});
 
 			  }

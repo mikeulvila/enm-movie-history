@@ -15,7 +15,8 @@ function authDataCallback(authData) {
         console.log("GETTING PROMISE BACK", data);
         var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
         console.log("ALLUSERMOVIES", allUserMovies);
-        getposter.requestData(allUserMovies);
+        var sortedResults = _.sortBy(allUserMovies, "Title");
+        getposter.requestData(sortedResults);
       });
   } else {
     console.log("User is logged out");

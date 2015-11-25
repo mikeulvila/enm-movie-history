@@ -12,6 +12,7 @@ define(function(require) {
   var starRating = require("star-rating");
   var populateAllPage = require("get-users-movie-collection");
   var watchedButton = require("watched-button");
+  var watchedMovies = require("search-watched-movies");
 
 
     // button to register new user
@@ -82,16 +83,10 @@ define(function(require) {
               var sortedResults = _.sortBy(combinedArray, "Title");
               console.log("sortedResults", sortedResults);
 
-              // $.each(combinedArray, function(index, value){
-              //   console.log("each function -- ", value.imdbID);
-              //   movieIDarray.push(value.imdbID);
-              //   console.log("movieIDarray", movieIDarray);
-              // }); //--end $.each
               getposter.requestData(sortedResults);
               
               }); //--end 2nd .then statement
             } //--end else
-
             
           }); //--end 1st .then statement
 
@@ -161,17 +156,29 @@ $(document).on('click', '.watched', function(event) {
 
 
 
-//********* NAV LINK EVENT HANDLERS ******
-
+//********* NAV LINK EVENT HANDLERS ************
+    // --all page
     $("#all-filter-button").click(function() {
       var userid = userLogin.getUid();
       populateAllPage(userid)
         .then(function(data) {
           var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
-          getposter.requestData(allUserMovies);
+          var sortedResults = _.sortBy(allUserMovies, "Title");
+          getposter.requestData(sortedResults);
         });
-
     });
+    // --watched page
+    $("#watched-filter-button").click(function() {
+      console.log("clicked watched");
+      var userid = userLogin.getUid();
+      watchedMovies(userid)
+        .then(function(data) {
+          var sortedResults = _.sortBy(data, "Title");
+          getposter.requestData(sortedResults);
+        });
+    });
+
+
 
 
 

@@ -43,7 +43,6 @@ ul {
   color: white;
   border-radius: 3px;
   width: 150px;
-  margin: 7px 0 25px 0;
   cursor: pointer;
   font-size: 18px;
   -webkit-transition-duration: 0.25s;
@@ -51,6 +50,9 @@ ul {
 
 .add-movie-to-collection:hover, .watched:hover {
   background-color: #f5f7f9; }
+
+.button-container-div {
+  margin: 7px 0 25px 0; }
 
 .wrapper {
   background: #50a3a2;

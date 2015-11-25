@@ -7,4 +7,5 @@ define(function(require) {
 	var stars = require("stars");
 	var starRating = require("star-rating");
 	var watchedButton = require("watched-button");
+	var watchedMovies = require("search-watched-movies");
 });
