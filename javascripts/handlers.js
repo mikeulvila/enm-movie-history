@@ -14,7 +14,7 @@ define(function(require) {
   var watchedButton = require("watched-button");
   var watchedMovies = require("search-watched-movies");
   var unwatchedMovies = require("search-unwatched-movies");
-
+  var favoriteMovies = require("search-favorite-movies");
 
     // button to register new user
     $("#register-button").click(function(event) {
@@ -180,9 +180,19 @@ $(document).on('click', '.watched', function(event) {
     });
     //--unwatched page
     $("#unwatched-filter-button").click(function() {
-      console.log("clicked watched");
+      console.log("clicked unwatched");
       var userid = userLogin.getUid();
       unwatchedMovies(userid)
+        .then(function(data) {
+          var sortedResults = _.sortBy(data, "Title");
+          getposter.requestData(sortedResults);
+        });
+    });
+    //--favorites page
+    $("#favorites-filter-button").click(function() {
+      console.log("clicked favorites");
+      var userid = userLogin.getUid();
+      favoriteMovies(userid)
         .then(function(data) {
           var sortedResults = _.sortBy(data, "Title");
           getposter.requestData(sortedResults);
