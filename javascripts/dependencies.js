@@ -8,4 +8,5 @@ define(function(require) {
 	var starRating = require("star-rating");
 	var watchedButton = require("watched-button");
 	var watchedMovies = require("search-watched-movies");
+	var unwatchedMovies = require("search-unwatched-movies");
 });

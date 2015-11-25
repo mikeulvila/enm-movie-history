@@ -13,6 +13,7 @@ define(function(require) {
   var populateAllPage = require("get-users-movie-collection");
   var watchedButton = require("watched-button");
   var watchedMovies = require("search-watched-movies");
+  var unwatchedMovies = require("search-unwatched-movies");
 
 
     // button to register new user
@@ -172,6 +173,16 @@ $(document).on('click', '.watched', function(event) {
       console.log("clicked watched");
       var userid = userLogin.getUid();
       watchedMovies(userid)
+        .then(function(data) {
+          var sortedResults = _.sortBy(data, "Title");
+          getposter.requestData(sortedResults);
+        });
+    });
+    //--unwatched page
+    $("#unwatched-filter-button").click(function() {
+      console.log("clicked watched");
+      var userid = userLogin.getUid();
+      unwatchedMovies(userid)
         .then(function(data) {
           var sortedResults = _.sortBy(data, "Title");
           getposter.requestData(sortedResults);
