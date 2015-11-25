@@ -2,14 +2,21 @@ define(function(require) {
 	var $ = require("jquery");
 	var firebase = require("firebase");
 	var populateAllPage = require("get-users-movie-collection");
+  var getposter = require("get-movie-poster-data");
 
 
 function authDataCallback(authData) {
   if (authData) {
     console.log("User " + authData.uid + " is logged in with " + authData.provider);
     $("#main-page").show();
-	$("#login-page").hide();
-	populateAllPage(authData.uid);
+	 $("#login-page").hide();
+	 populateAllPage(authData.uid)
+      .then(function(data) {
+        console.log("GETTING PROMISE BACK", data);
+        var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
+        console.log("ALLUSERMOVIES", allUserMovies);
+        getposter.requestData(allUserMovies);
+      });
   } else {
     console.log("User is logged out");
   }

@@ -2,9 +2,8 @@ define(function(require) {
 	var $ = require("jquery");
 	var firebase = require("firebase");
 	var populateAllPage = require("get-users-movie-collection");
+	var getposter = require("get-movie-poster-data");
 
-	// var loggedinuser;
-	// var currentUserId;
 	return {
 		logUserIn: function(userEmail, userPassword) {
 			var ref = new Firebase("https://movie-history-enm.firebaseio.com/");
@@ -19,8 +18,12 @@ define(function(require) {
 			    console.log("Authenticated successfully with payload:", authData);
 			    currentUserId = authData.uid;
 			    $("#main-page").show();
-					$("#login-page").hide();
-					populateAllPage(currentUserId);
+				$("#login-page").hide();
+				populateAllPage(currentUserId)
+        			.then(function(data) {
+          				var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
+          				getposter.requestData(allUserMovies);
+        		});
 
 			  }
 			});

@@ -65,6 +65,7 @@ define(function(require) {
                 $.each(data1.Search, function(index, value){
                 movieIDarray.push(value.imdbID);
                 }); //--end $.each
+                console.log("movieIDarray", movieIDarray);
                 getposter.requestData(movieIDarray);
               });
             } else {
@@ -164,7 +165,12 @@ $(document).on('click', '.watched', function(event) {
 
     $("#all-filter-button").click(function() {
       var userid = userLogin.getUid();
-      populateAllPage(userid); //calls "get-users-movie-collection" module
+      populateAllPage(userid)
+        .then(function(data) {
+          var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
+          getposter.requestData(allUserMovies);
+        });
+
     });
 
 
