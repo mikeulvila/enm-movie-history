@@ -10,7 +10,9 @@
 	  <link rel="stylesheet" type="text/css" href="styles/main.css">
 	</head>
 	<body>
+
 		<!-- FRAMEWORK for SPLASH PAGE -->
+
 		<div id="login-page">
 			<div class="wrapper">
 				<div class="container">
@@ -24,8 +26,6 @@
 				</div>
 			</div>
 		</div>
-
-
 
 		<!-- FRAMEWORK for MAIN PAGE -->
 
@@ -41,7 +41,6 @@
 					        <span class="icon-bar"></span>
 					    </button>
 				    </div>
-		
 				    <!-- Collect the nav links, forms, and other content for toggling -->
 				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<form class="navbar-form navbar-left" role="search">
@@ -52,7 +51,10 @@
 				        </ul>
 				    </div><!-- /.navbar-collapse -->
 			    </div><!-- /.container-fluid -->
-			</nav>
+			</nav> <!-- /end .navbar -->
+
+			<!-- ALL, WATCHED, UNWATCHED, FAVORITES LINKS -->
+
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-sm-3">
@@ -66,21 +68,14 @@
 							<li id="favorites-filter-button"><a href="#">Favorites</a></li>
 						</ul>
 					</div>
-				</div>
-
+				</div> <!-- /end .row -->
 	
 				<!-- DYNAMICALLY LOADED CONTENT below -->
 				<div class="dynamic">
-		
 					<div id="template-container" class="row"></div>
-
 				</div><!-- -end .dynamic -->
 			</div><!-- -end .container-fluid -->
-		</div>
-
-
-
-
+		</div> <!-- end #main-page -->
 
 		<!-- END MAIN PAGE FRAMEWORK -->
 		<script data-main="javascripts/entry" src="lib/bower_components/requirejs/require.js"></script>

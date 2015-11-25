@@ -3,8 +3,7 @@ define(function(require) {
 	var Q = require("q");
 	var _ = require("lodash");
 	var firebase = require("firebase");
-
-
+// This module searches the users database and filters out movies where Watched key is true
 	return function (userid) {
 	var deferred = Q.defer();
 			var ref = new Firebase("https://movie-history-enm.firebaseio.com/collections/" + userid);

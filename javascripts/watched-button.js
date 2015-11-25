@@ -1,8 +1,7 @@
 define(function(require) {
 	var firebase = require("firebase");
-
+	// This module updates the Watched key to true when watched button has been clicked
 	return function (userid, movieID) {
-
 			var userRef = new Firebase("https://movie-history-enm.firebaseio.com/collections/" + userid );
 			var movieRef = userRef.child(movieID);
 			movieRef.update({
