@@ -19,6 +19,7 @@ define(function(require) {
   var favoriteMovies = require("search-favorite-movies");
   var deleteMovie = require("delete-movie-from-my-collection");
 
+
     // button to register new user
     $("#register-button").click(function(event) {
       event.preventDefault();
