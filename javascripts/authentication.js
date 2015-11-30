@@ -3,8 +3,10 @@ define(function(require) {
 	var firebase = require("firebase");
 	var userLogin = require("existing-user-login");
 
+	//alert div
 	var alertBox = $('#alert');
 
+	//alert object function
 	function showAlert(opts) {
         var title = opts.title;
         var detail = opts.detail;
@@ -25,6 +27,7 @@ define(function(require) {
 			}, function(error, authData) {
 			  if (error) {
 			    console.log("Error creating user:", error.message);
+			    //alert object function
 			    showAlert({
                 	title: error.code,
                 	detail: error.message,
