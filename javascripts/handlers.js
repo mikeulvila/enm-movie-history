@@ -2,7 +2,6 @@ define(function(require) {
 	var $ = require("jquery");
   var bootstrap = require("bootstrap");
 	var getposter = require("get-movie-poster-data");
-  var getmyposters = require("populate-my-collections-movies");
   var getmoviedata = require("get-movie-data");
   var getaddedmoviedata = require("get-added-movie-data");
   var addMovieToFirebase = require("add-movie-to-firebase");
@@ -147,7 +146,7 @@ define(function(require) {
     watchedMovies(userid)
         .then(function(data) {
           var sortedResults = _.sortBy(data, "Title");
-          getmyposters.requestData(sortedResults);
+          getposter.requestData(sortedResults);
         });
 
   });//--end watched button
@@ -174,7 +173,7 @@ define(function(require) {
         .then(function(data) {
           var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
           var sortedResults = _.sortBy(allUserMovies, "Title");
-          getmyposters.requestData(sortedResults);
+          getposter.requestData(sortedResults);
         });
     });
     // --watched page
@@ -184,7 +183,7 @@ define(function(require) {
       watchedMovies(userid)
         .then(function(data) {
           var sortedResults = _.sortBy(data, "Title");
-          getmyposters.requestData(sortedResults);
+          getposter.requestData(sortedResults);
         });
     });
     //--unwatched page
@@ -194,7 +193,7 @@ define(function(require) {
       unwatchedMovies(userid)
         .then(function(data) {
           var sortedResults = _.sortBy(data, "Title");
-          getmyposters.requestData(sortedResults);
+          getposter.requestData(sortedResults);
         });
     });
     //--favorites page
@@ -204,7 +203,7 @@ define(function(require) {
       favoriteMovies(userid)
         .then(function(data) {
           var sortedResults = _.sortBy(data, "Title");
-          getmyposters.requestData(sortedResults);
+          getposter.requestData(sortedResults);
         });
     });
 
@@ -223,7 +222,7 @@ define(function(require) {
         .then(function(data) {
             var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
             var sortedResults = _.sortBy(allUserMovies, "Title");
-            getmyposters.requestData(sortedResults);
+            getposter.requestData(sortedResults);
       });
     });//--end delete movie from collection
 
