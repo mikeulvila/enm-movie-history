@@ -1,10 +1,14 @@
 {{#each movies}}
 <div class="col-sm-4">
 	<div id="movie-box">
+		{{#if Type}}
+		<img class="img" data-toggle="modal" data-target=".{{imdbID}}" src="{{url}}" alt="{{Title}}">
+		{{else}}
 		<img class="img" data-toggle="modal" data-target=".{{imdbID}}" src="{{url}}" alt="{{Title}}">
 		<a href="#" class="x-icon">
 			<span id="{{imdbID}}" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 		</a>
+		{{/if}}
 	</div>
 	<div class="button-container-div">
 		{{#if Type}}
@@ -17,6 +21,9 @@
 			{{/if}}
 		{{/if}}
 	</div>
+	{{#if Type}}
+	{{!--if it's an API movie, do nothing--}}
+	{{else}}
 	{{!--modal with movie info--}}
 	<div class="modal fade {{imdbID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  	<div class="modal-dialog" role="document">
@@ -35,5 +42,6 @@
 	    	</div>
 	  	</div>
 	</div>
+	{{/if}}
 </div> {{!--end div col-sm-4--}}
 {{/each}}

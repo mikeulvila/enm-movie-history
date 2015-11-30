@@ -17,7 +17,7 @@ define(function(require) {
 				}
 		
 			});
-			require(['hbs!../templates/find-movies-results'], function(movieTemplate) {
+			require(['hbs!../templates/searched-my-movies'], function(movieTemplate) {
                   $("#template-container").html(movieTemplate({movies:templateArray}));
                   $(".rating").rating();
                 });	
