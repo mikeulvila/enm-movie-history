@@ -3,6 +3,7 @@ define(function(require) {
 	var firebase = require("firebase");
 	var populateAllPage = require("get-users-movie-collection");
   var getposter = require("get-movie-poster-data");
+  var getmyposters = require("populate-my-collections-movies");
 
 
 function authDataCallback(authData) {
@@ -16,7 +17,7 @@ function authDataCallback(authData) {
         var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
         console.log("ALLUSERMOVIES", allUserMovies);
         var sortedResults = _.sortBy(allUserMovies, "Title");
-        getposter.requestData(sortedResults);
+        getmyposters.requestData(sortedResults);
       });
   } else {
     console.log("User is logged out");

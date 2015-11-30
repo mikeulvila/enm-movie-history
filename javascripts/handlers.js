@@ -1,6 +1,8 @@
 define(function(require) {
 	var $ = require("jquery");
+  var bootstrap = require("bootstrap");
 	var getposter = require("get-movie-poster-data");
+  var getmyposters = require("populate-my-collections-movies");
   var getmoviedata = require("get-movie-data");
   var getaddedmoviedata = require("get-added-movie-data");
   var addMovieToFirebase = require("add-movie-to-firebase");
@@ -93,7 +95,7 @@ define(function(require) {
 
 
 
-//************ ADD MOVIE TO COLLECTION ******************
+  //************ ADD MOVIE TO COLLECTION ******************
 
     $("body").on("click", ".add-movie-to-collection", function(event) {
       console.log("this poster", $(this).attr('poster'));
@@ -119,8 +121,8 @@ define(function(require) {
     }); // end body click function
 
 
-//********************** STAR RATING ***********************
-$(document).on('rating.change', function(event, starValue) {
+  //********************** STAR RATING ***********************
+  $(document).on('rating.change', function(event, starValue) {
 
     console.log("starValue", starValue);
     console.log("event.target", event.target);
@@ -132,8 +134,8 @@ $(document).on('rating.change', function(event, starValue) {
     starRating(userid, movieID, starValue);
   });//--end star rating
 
-//********************** WATCHED BUTTON *******************
-$(document).on('click', '.watched', function(event) {
+  //********************** WATCHED BUTTON *******************
+  $(document).on('click', '.watched', function(event) {
 
     console.log("event.target", event.target);
 
@@ -145,19 +147,26 @@ $(document).on('click', '.watched', function(event) {
     watchedMovies(userid)
         .then(function(data) {
           var sortedResults = _.sortBy(data, "Title");
-          getposter.requestData(sortedResults);
+          getmyposters.requestData(sortedResults);
         });
 
-  });//--end star rating
+  });//--end watched button
+
+
+
+  // *********MODAL SHOW/HIDE************//
+  $(document).on('click', '.img', function(event) {
+    var thisthing = event.target;
+    var thisModal = $(thisthing).attr("data-target");
+    thisModal = '"' + thisModal + '"';
+    console.log("this Modal", thisModal);
+    $(thisModal).modal("show");
+  });//--end img click to show modal
 
 
 
 
-
-
-
-
-//********* NAV LINK EVENT HANDLERS ************//
+  //********* NAV LINK EVENT HANDLERS ************//
     // --all page
     $("#all-filter-button").click(function() {
       var userid = userLogin.getUid();
@@ -165,7 +174,7 @@ $(document).on('click', '.watched', function(event) {
         .then(function(data) {
           var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
           var sortedResults = _.sortBy(allUserMovies, "Title");
-          getposter.requestData(sortedResults);
+          getmyposters.requestData(sortedResults);
         });
     });
     // --watched page
@@ -175,7 +184,7 @@ $(document).on('click', '.watched', function(event) {
       watchedMovies(userid)
         .then(function(data) {
           var sortedResults = _.sortBy(data, "Title");
-          getposter.requestData(sortedResults);
+          getmyposters.requestData(sortedResults);
         });
     });
     //--unwatched page
@@ -185,7 +194,7 @@ $(document).on('click', '.watched', function(event) {
       unwatchedMovies(userid)
         .then(function(data) {
           var sortedResults = _.sortBy(data, "Title");
-          getposter.requestData(sortedResults);
+          getmyposters.requestData(sortedResults);
         });
     });
     //--favorites page
@@ -195,7 +204,7 @@ $(document).on('click', '.watched', function(event) {
       favoriteMovies(userid)
         .then(function(data) {
           var sortedResults = _.sortBy(data, "Title");
-          getposter.requestData(sortedResults);
+          getmyposters.requestData(sortedResults);
         });
     });
 
@@ -214,7 +223,7 @@ $(document).on('click', '.watched', function(event) {
         .then(function(data) {
             var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
             var sortedResults = _.sortBy(allUserMovies, "Title");
-            getposter.requestData(sortedResults);
+            getmyposters.requestData(sortedResults);
       });
     });//--end delete movie from collection
 
