@@ -22,17 +22,30 @@ body ::-webkit-input-placeholder {
 
 ul {
   list-style: none; }
-  ul .filter-links > li {
-    color: black; }
 
-.navbar {
+li {
+  color: black;
+  margin: 0 5px 15px !important; }
+
+#search-field {
+  margin-top: 8px; }
+
+#logout-button > a {
+  padding-top: 20px; }
+
+nav.navbar {
   border-radius: none; }
 
 #template-container > .col-sm-4 {
   text-align: center; }
 
 .img {
-  box-shadow: 0px 0px 8px 0px #444444; }
+  box-shadow: 0px 0px 8px 0px #444444;
+  position: relative;
+  border-radius: 4px;
+  z-index: 100;
+  width: 200px;
+  height: 300px; }
 
 .add-movie-to-collection, .watched {
   -webkit-appearance: none;
@@ -132,5 +145,17 @@ form button {
 
 form button:hover {
   background-color: #f5f7f9; }
+
+.x-icon {
+  font-family: Helvetica;
+  font-weight: 900;
+  color: lightgrey;
+  font-size: 25px;
+  text-decoration: none;
+  position: absolute;
+  margin-left: 8px; }
+
+.movie-box {
+  position: relative; }
 
 /*# sourceMappingURL=main.css.map */

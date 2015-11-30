@@ -1,7 +1,10 @@
 {{#each movies}}
 <div class="col-sm-4">
-	<div>
-		<img class="img" src="{{url}}" alt="poster img">
+	<div id="movie-box">
+		<img class="img" src="{{url}}" alt="{{Title}}">
+		<a href="#" class="x-icon">
+			<span id="{{imdbID}}" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		</a>
 	</div>
 	<div class="button-container-div">
 		{{#if Type}}

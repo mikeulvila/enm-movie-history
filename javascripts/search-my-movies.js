@@ -24,27 +24,3 @@ define(function(require) {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-// var collectionsRef = snapshot.val();
-// 				// console.log("collectionsRef", collectionsRef);
-// 				// console.log("searchval", searchVal);
-// 				var filtered = _.filter(collectionsRef, function(obj) {
-// 					if (_.includes(obj.title.toLowerCase(), searchVal.toLowerCase())) {
-// 						console.log("obj includes", obj.title);
-// 						return obj;
-// 					}
-// 				});
-// 				console.log("filtered list", filtered);
-// 				require(['hbs!../templates/searched-my-movies'], function(movieTemplate) {
-//                   $("#template-container").append(movieTemplate(filtered));
-//                 });	

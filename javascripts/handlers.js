@@ -15,6 +15,7 @@ define(function(require) {
   var watchedMovies = require("search-watched-movies");
   var unwatchedMovies = require("search-unwatched-movies");
   var favoriteMovies = require("search-favorite-movies");
+  var deleteMovie = require("delete-movie-from-my-collection");
 
     // button to register new user
     $("#register-button").click(function(event) {
@@ -41,19 +42,14 @@ define(function(require) {
 
     // preventing default form submit on input field
     $("#search-field").keypress(function(event) {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-
+      if (event.keyCode === 13) { // if user presses 'enter'
+        event.preventDefault(); // prevents form from submitting
 
         var movieIDarray = [];
+        var searchedData;
 
         var userid = userLogin.getUid();
         var value = $("#search-field").val();
-
-        console.log("value----", value);
-
-
-        var searchedData;
 
         searchMyMovies(userid, value)
           .then(function(data) {
@@ -75,17 +71,17 @@ define(function(require) {
               console.log("searchedData", searchedData);
               //searching API for all movies that contain search value
               getmoviedata.requestData(value)
-            .then(function(data) {
-              var apiData = data.Search;
-              console.log("API data ---", apiData);
-              var combinedArray = filterSearch(searchedData, apiData);
-              console.log("combinedArray", combinedArray);
+              .then(function(data) {
+                var apiData = data.Search;
+                console.log("API data ---", apiData);
+                var combinedArray = filterSearch(searchedData, apiData);
+                console.log("combinedArray", combinedArray);
 
-              var sortedResults = _.sortBy(combinedArray, "Title");
-              console.log("sortedResults", sortedResults);
+                var sortedResults = _.sortBy(combinedArray, "Title");
+                console.log("sortedResults", sortedResults);
 
-              getposter.requestData(sortedResults);
-              
+                getposter.requestData(sortedResults);
+                
               }); //--end 2nd .then statement
             } //--end else
             
@@ -134,7 +130,6 @@ $(document).on('rating.change', function(event, starValue) {
     console.log("movieID", movieID);
     console.log("userid", userid);
     starRating(userid, movieID, starValue);
-
   });//--end star rating
 
 //********************** WATCHED BUTTON *******************
@@ -147,6 +142,11 @@ $(document).on('click', '.watched', function(event) {
     console.log("movieID", movieID);
     console.log("userid", userid);
     watchedButton(userid, movieID);
+    watchedMovies(userid)
+        .then(function(data) {
+          var sortedResults = _.sortBy(data, "Title");
+          getposter.requestData(sortedResults);
+        });
 
   });//--end star rating
 
@@ -157,7 +157,7 @@ $(document).on('click', '.watched', function(event) {
 
 
 
-//********* NAV LINK EVENT HANDLERS ************
+//********* NAV LINK EVENT HANDLERS ************//
     // --all page
     $("#all-filter-button").click(function() {
       var userid = userLogin.getUid();
@@ -199,6 +199,24 @@ $(document).on('click', '.watched', function(event) {
         });
     });
 
+
+    //----- DELETE MOVIE FROM COLLECTION ------//
+    $(document).on('click', '.glyphicon-remove', function(event) {
+      //target movie and user ids
+      var thisMovie = event.target.id;
+      console.log("this movie", thisMovie);
+      var userID = userLogin.getUid();
+      console.log("this user", userID);
+      //delete movie from firebase
+      deleteMovie(userID, thisMovie);
+      //repopulate page with new results
+      populateAllPage(userID)
+        .then(function(data) {
+            var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
+            var sortedResults = _.sortBy(allUserMovies, "Title");
+            getposter.requestData(sortedResults);
+      });
+    });//--end delete movie from collection
 
 
 

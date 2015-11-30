@@ -7,9 +7,7 @@ define(function(require) {
 
 	return {
 		pushData: function(userid, movieID, addedMovieObj) {
-			
-			console.log("userid-----", userid);
-
+			//creates new firebase reference then sets new movie object
 			var newRef = new Firebase("https://movie-history-enm.firebaseio.com/collections/" + userid);
 			console.log("newRef", newRef);
 			newRef.child(movieID).set(addedMovieObj);
