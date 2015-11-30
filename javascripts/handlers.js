@@ -102,6 +102,7 @@ define(function(require) {
       console.log("this poster", $(this).attr('poster'));
       var userid = userLogin.getUid();
       var posterURL = $(this).attr('poster');
+      var value = $("#search-field").val();
       getaddedmoviedata.requestData(this.id)
         .then(function(data){
           console.log("in-depth data", data);
@@ -115,6 +116,45 @@ define(function(require) {
             "imdbID" : data.imdbID
           };
           addMovieToFirebase.pushData(userid, data.imdbID, addedMovieObj);
+
+          //gesture on "add" button fires "search" function again
+          //code below is duplicated -- should refactor to call a module.
+          searchMyMovies(userid, value)
+          .then(function(data) {
+            // searchedData will equal movies user has added
+            console.log("data", data);
+            // if there are no movies in the users database, just get movies from API
+            if (data === null) {
+              getmoviedata.requestData(value)
+              .then(function(data1) {
+                console.log("data1", data1);
+                $.each(data1.Search, function(index, value){
+                movieIDarray.push(value.imdbID);
+                }); //--end $.each
+                console.log("movieIDarray", movieIDarray);
+                getposter.requestData(movieIDarray);
+              });
+            } else {
+              searchedData = Object.keys( data ).map(function(key) { return data[key];});
+              console.log("searchedData", searchedData);
+              //searching API for all movies that contain search value
+              getmoviedata.requestData(value)
+              .then(function(data) {
+                var apiData = data.Search;
+                console.log("API data ---", apiData);
+                var combinedArray = filterSearch(searchedData, apiData);
+                console.log("combinedArray", combinedArray);
+
+                var sortedResults = _.sortBy(combinedArray, "Title");
+                console.log("sortedResults", sortedResults);
+
+                getposter.requestData(sortedResults);
+                
+              }); //--end 2nd .then statement
+            } //--end else
+            
+          }); //--end 1st .then statement
+
         })
         .fail(function(error){
           console.log("it's fucked", error);
