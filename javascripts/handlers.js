@@ -77,6 +77,11 @@ define(function(require) {
               .then(function(data) {
                 var apiData = data.Search;
                 console.log("API data ---", apiData);
+                if (apiData === undefined) {
+                  console.log("YOU'RE GOING TO GET AN ERROR");
+                  $("#no-search-results").show();
+                }
+
                 var combinedArray = filterSearch(searchedData, apiData);
                 console.log("combinedArray", combinedArray);
 
@@ -93,7 +98,10 @@ define(function(require) {
       }
     });
 
-
+  //************ HIDE WARNING ****************
+  $("#close-warning").click(function(){
+    $("#no-search-results").hide();
+  });
 
 
   //************ ADD MOVIE TO COLLECTION ******************
