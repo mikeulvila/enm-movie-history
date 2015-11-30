@@ -1,0 +1,52 @@
+{{#grouped_each 4 movies}}
+<div class="row">
+	{{#each this}}
+	<div class="col-sm-3">
+			{{#if Type}}
+			<div id="movie-box" class="img" data-toggle="modal" data-target=".{{imdbID}}" style="background-image: url({{url}})">
+			</div>
+			{{else}}
+			<div id="movie-box" class="img" data-toggle="modal" data-target=".{{imdbID}}" style="background-image: url({{url}})">
+				<a href="#" class="x-icon">
+					<span id="{{imdbID}}" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</a>
+			</div>
+			
+			{{/if}}
+		<div class="button-container-div">
+			{{#if Type}}
+			<button id="{{imdbID}}" poster="{{url}}" class="add-movie-to-collection">Add</button>
+			{{else}}
+				{{#if Watched}}
+				<input id="{{imdbID}}" poster="{{url}}" class="rating" data-min="0" data-max="5" data-step="1" data-show-clear="false" data-show-caption="false" data-size="xs" value="{{Rating}}">
+				{{else}}
+				<button id="{{imdbID}}" poster="{{url}}" class="watched">Watched</button>
+				{{/if}}
+			{{/if}}
+		</div>
+		{{#if Type}}
+		{{!--if it's an API movie, do nothing--}}
+		{{else}}
+		{{!--modal with movie info--}}
+		<div class="modal fade {{imdbID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  	<div class="modal-dialog" role="document">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+		        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        		<h4 class="modal-title" id="myModalLabel">{{Title}}</h4>
+		      		</div>
+		      		<div class="modal-body">
+		      			<p>Actors: {{Actors}}</p>
+		      			<p>Year: {{Year}}</p>
+		      		</div>
+		      		<div class="modal-footer">
+		        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
+		{{/if}}
+	</div> {{!--end div col-sm-4--}}
+	{{/each}}
+</div>
+{{/grouped_each}}

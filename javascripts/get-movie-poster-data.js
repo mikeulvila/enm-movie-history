@@ -2,6 +2,7 @@ define(function(require) {
 	var $ = require("jquery");
 	var Q = require("q");
 	var stars = require("stars");
+	// var Handlebars = require("handlebars");
 
 
 	return {
@@ -17,9 +18,11 @@ define(function(require) {
 				}
 		
 			});
-			require(['hbs!../templates/searched-my-movies'], function(movieTemplate) {
-                  $("#template-container").html(movieTemplate({movies:templateArray}));
-                  $(".rating").rating();
+
+			require(['hbs!./templates/searched-my-movies'], function(movieTemplate) {
+
+                  	$("#template-container").html(movieTemplate({movies:templateArray}));
+                  	$(".rating").rating();
                 });	
 
 			console.log("templateArray", templateArray);

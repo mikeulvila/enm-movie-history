@@ -1,5 +1,6 @@
 define(function(require) {
 	var $ = require("jquery");
+  // var Handlebars = require("handlebars");
   var bootstrap = require("bootstrap");
 	var getposter = require("get-movie-poster-data");
   var getmoviedata = require("get-movie-data");
@@ -17,6 +18,7 @@ define(function(require) {
   var unwatchedMovies = require("search-unwatched-movies");
   var favoriteMovies = require("search-favorite-movies");
   var deleteMovie = require("delete-movie-from-my-collection");
+
 
     // button to register new user
     $("#register-button").click(function(event) {
@@ -133,7 +135,9 @@ define(function(require) {
     starRating(userid, movieID, starValue);
   });//--end star rating
 
-  //********************** WATCHED BUTTON *******************
+
+
+  //********************** WATCHED BUTTON *******************//
   $(document).on('click', '.watched', function(event) {
 
     console.log("event.target", event.target);
@@ -148,9 +152,27 @@ define(function(require) {
           var sortedResults = _.sortBy(data, "Title");
           getposter.requestData(sortedResults);
         });
-
   });//--end watched button
 
+
+
+  //----- DELETE MOVIE FROM COLLECTION ------//
+  $(document).on('click', '.glyphicon-remove', function(event) {
+    //target movie and user ids
+    var thisMovie = event.target.id;
+    console.log("this movie", thisMovie);
+    var userID = userLogin.getUid();
+    console.log("this user", userID);
+    //delete movie from firebase
+    deleteMovie(userID, thisMovie);
+    //repopulate page with new results
+    populateAllPage(userID)
+      .then(function(data) {
+          var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
+          var sortedResults = _.sortBy(allUserMovies, "Title");
+          getposter.requestData(sortedResults);
+    });
+  });//--end delete movie from collection
 
 
   // *********MODAL SHOW/HIDE************//
@@ -208,23 +230,6 @@ define(function(require) {
     });
 
 
-    //----- DELETE MOVIE FROM COLLECTION ------//
-    $(document).on('click', '.glyphicon-remove', function(event) {
-      //target movie and user ids
-      var thisMovie = event.target.id;
-      console.log("this movie", thisMovie);
-      var userID = userLogin.getUid();
-      console.log("this user", userID);
-      //delete movie from firebase
-      deleteMovie(userID, thisMovie);
-      //repopulate page with new results
-      populateAllPage(userID)
-        .then(function(data) {
-            var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
-            var sortedResults = _.sortBy(allUserMovies, "Title");
-            getposter.requestData(sortedResults);
-      });
-    });//--end delete movie from collection
 
 
 

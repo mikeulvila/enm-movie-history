@@ -23,15 +23,6 @@ require(
   ["dependencies"], 
   function(dependencies) {
 
-    /*
-      You can choose to use the REST methods to interact with
-      Firebase, or you can use the Firebase API with event
-      listeners. It's completely up to each team.
-
-      If you choose the former, I created two boilerplate modules
-      named `potential-mates.js`, and `add-favorite.js`.
-     */
-
 
   }
 );
