@@ -18,6 +18,18 @@ define(function(require) {
   var unwatchedMovies = require("search-unwatched-movies");
   var favoriteMovies = require("search-favorite-movies");
   var deleteMovie = require("delete-movie-from-my-collection");
+  var searchAll = require("search-all");
+
+  var viewState = "all";
+  var currentUserID = userLogin.getUid();
+
+  // console.log("currentUserID", currentUserID);
+
+  // var fbListenerRef = new Firebase("https://movie-history-enm.firebaseio.com/collections/" + currentUserID);
+
+  // fbListenerRef.on("value", function() {
+  //   console.log("fb value change!!");
+  // })
 
 
     // button to register new user
@@ -48,52 +60,15 @@ define(function(require) {
       if (event.keyCode === 13) { // if user presses 'enter'
         event.preventDefault(); // prevents form from submitting
 
+        viewState = "searchResults";
+
         var movieIDarray = [];
         var searchedData;
 
         var userid = userLogin.getUid();
         var value = $("#search-field").val();
 
-        searchMyMovies(userid, value)
-          .then(function(data) {
-            // searchedData will equal movies user has added
-            console.log("data", data);
-            // if there are no movies in the users database, just get movies from API
-            if (data === null) {
-              getmoviedata.requestData(value)
-              .then(function(data1) {
-                console.log("data1", data1);
-                $.each(data1.Search, function(index, value){
-                movieIDarray.push(value.imdbID);
-                }); //--end $.each
-                console.log("movieIDarray", movieIDarray);
-                getposter.requestData(movieIDarray);
-              });
-            } else {
-              searchedData = Object.keys( data ).map(function(key) { return data[key];});
-              console.log("searchedData", searchedData);
-              //searching API for all movies that contain search value
-              getmoviedata.requestData(value)
-              .then(function(data) {
-                var apiData = data.Search;
-                console.log("API data ---", apiData);
-                if (apiData === undefined) {
-                  console.log("YOU'RE GOING TO GET AN ERROR");
-                  $("#no-search-results").show();
-                }
-
-                var combinedArray = filterSearch(searchedData, apiData);
-                console.log("combinedArray", combinedArray);
-
-                var sortedResults = _.sortBy(combinedArray, "Title");
-                console.log("sortedResults", sortedResults);
-
-                getposter.requestData(sortedResults);
-                
-              }); //--end 2nd .then statement
-            } //--end else
-            
-          }); //--end 1st .then statement
+        searchAll(userid, value);
 
       }
     });
@@ -125,43 +100,20 @@ define(function(require) {
           };
           addMovieToFirebase.pushData(userid, data.imdbID, addedMovieObj);
 
-          //gesture on "add" button fires "search" function again
-          //code below is duplicated -- should refactor to call a module.
-          searchMyMovies(userid, value)
-          .then(function(data) {
-            // searchedData will equal movies user has added
-            console.log("data", data);
-            // if there are no movies in the users database, just get movies from API
-            if (data === null) {
-              getmoviedata.requestData(value)
-              .then(function(data1) {
-                console.log("data1", data1);
-                $.each(data1.Search, function(index, value){
-                movieIDarray.push(value.imdbID);
-                }); //--end $.each
-                console.log("movieIDarray", movieIDarray);
-                getposter.requestData(movieIDarray);
-              });
-            } else {
-              searchedData = Object.keys( data ).map(function(key) { return data[key];});
-              console.log("searchedData", searchedData);
-              //searching API for all movies that contain search value
-              getmoviedata.requestData(value)
-              .then(function(data) {
-                var apiData = data.Search;
-                console.log("API data ---", apiData);
-                var combinedArray = filterSearch(searchedData, apiData);
-                console.log("combinedArray", combinedArray);
+          if (viewState === "searchResults") {
+            searchAll(userid, value);
+          };
 
-                var sortedResults = _.sortBy(combinedArray, "Title");
-                console.log("sortedResults", sortedResults);
+          // if (viewState === "all") {
+          //   populateAllPage(userid)
+          //     .then(function(data) {
+          //       var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
+          //       var sortedResults = _.sortBy(allUserMovies, "Title");
+          //       getposter.requestData(sortedResults);
+          //     });
+          // };
 
-                getposter.requestData(sortedResults);
-                
-              }); //--end 2nd .then statement
-            } //--end else
-            
-          }); //--end 1st .then statement
+          
 
         })
         .fail(function(error){
@@ -192,14 +144,33 @@ define(function(require) {
 
     var userid = userLogin.getUid();
     var movieID = event.target.id;
+    var value = $("#search-field").val();
     console.log("movieID", movieID);
     console.log("userid", userid);
-    watchedButton(userid, movieID);
-    watchedMovies(userid)
+      
+    if (viewState === "all") {  
+      watchedButton(userid, movieID);
+      populateAllPage(userid)
+        .then(function(data) {
+          var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
+          var sortedResults = _.sortBy(allUserMovies, "Title");
+          getposter.requestData(sortedResults);
+        });
+      };
+
+    if (viewState === "searchResults") {
+      watchedButton(userid, movieID);
+      searchAll(userid, value);
+    };
+
+    if (viewState === "unwatched") {
+      watchedButton(userid, movieID);
+      unwatchedMovies(userid)
         .then(function(data) {
           var sortedResults = _.sortBy(data, "Title");
           getposter.requestData(sortedResults);
         });
+    };
   });//--end watched button
 
 
@@ -207,21 +178,51 @@ define(function(require) {
   //----- DELETE MOVIE FROM COLLECTION ------//
   $(document).on('click', '.glyphicon-remove', function(event) {
     console.log("you clicked remove");
-    //target movie and user ids
+    target movie and user ids
     var thisMovie = event.target.id;
     console.log("this movie", thisMovie);
     var userID = userLogin.getUid();
+    var value = $("#search-field").val();
     console.log("this user", userID);
-    //delete movie from firebase
-    deleteMovie(userID, thisMovie);
-    //repopulate page with new results
-    populateAllPage(userID)
-      .then(function(data) {
+
+    if (viewState === "all") {  
+      //delete movie from firebase
+      deleteMovie(userID, thisMovie);
+      populateAllPage(userID)
+        .then(function(data) {
           var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
-          console.log("allUserMovies", allUserMovies);
           var sortedResults = _.sortBy(allUserMovies, "Title");
           getposter.requestData(sortedResults);
-    });
+        });
+      };
+
+    if (viewState === "searchResults") {
+     //delete movie from firebase
+      deleteMovie(userID, thisMovie);
+
+      searchAll(userID, value);
+    };
+
+    if (viewState === "unwatched") {
+      //delete movie from firebase
+      deleteMovie(userID, thisMovie);
+      unwatchedMovies(userID)
+        .then(function(data) {
+          var sortedResults = _.sortBy(data, "Title");
+          getposter.requestData(sortedResults);
+        });
+      };
+
+    if (viewState === "watched") {
+      //delete movie from firebase
+      deleteMovie(userID, thisMovie);
+      watchedMovies(userID)
+        .then(function(data) {
+          var sortedResults = _.sortBy(data, "Title");
+          getposter.requestData(sortedResults);
+        });
+      };
+
   });//--end delete movie from collection
 
 
@@ -236,10 +237,10 @@ define(function(require) {
 
 
 
-
   //********* NAV LINK EVENT HANDLERS ************//
     // --all page
     $("#all-filter-button").click(function() {
+      viewState = "all";
       var userid = userLogin.getUid();
       populateAllPage(userid)
         .then(function(data) {
@@ -250,6 +251,9 @@ define(function(require) {
     });
     // --watched page
     $("#watched-filter-button").click(function() {
+
+      viewState = "watched";
+
       console.log("clicked watched");
       var userid = userLogin.getUid();
       watchedMovies(userid)
@@ -260,6 +264,7 @@ define(function(require) {
     });
     //--unwatched page
     $("#unwatched-filter-button").click(function() {
+      viewState = "unwatched"
       console.log("clicked unwatched");
       var userid = userLogin.getUid();
       unwatchedMovies(userid)
