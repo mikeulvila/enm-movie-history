@@ -184,7 +184,7 @@ define(function(require) {
   //----- DELETE MOVIE FROM COLLECTION ------//
   $(document).on('click', '.glyphicon-remove', function(event) {
     console.log("you clicked remove");
-    target movie and user ids
+    //target movie and user ids
     var thisMovie = event.target.id;
     console.log("this movie", thisMovie);
     var userID = userLogin.getUid();
