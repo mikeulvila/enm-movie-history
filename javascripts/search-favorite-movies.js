@@ -12,7 +12,7 @@ define(function(require) {
 				var collectionsRef = snapshot.val();
 				console.log("collectionsRef", collectionsRef);
 				var filteredWatched = _.filter(collectionsRef, function(obj) {
-					if (obj.Rating === "5") {
+					if (obj.Rating === "10") {
 						return obj;
 					}
 				});
