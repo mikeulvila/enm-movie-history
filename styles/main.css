@@ -70,6 +70,9 @@ nav.navbar {
 .button-container-div {
   margin: 7px 0 25px 27px; }
 
+.rating-container-div {
+  margin: 7px 0 25px 14px; }
+
 .wrapper {
   background: #50a3a2;
   background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
@@ -157,12 +160,16 @@ form button:hover {
   text-decoration: none;
   position: absolute;
   margin-left: 170px;
-  margin-top: 4px; }
+  margin-top: 4px;
+  position: absolute;
+  top: 0px;
+  z-index: 2; }
 
-.movie-box {
+#movie-box {
+  position: relative;
+  z-index: 1; }
+
+#movie-parent {
   position: relative; }
-
-#myModalLabel {
-  font-weight: 900; }
 
 /*# sourceMappingURL=main.css.map */

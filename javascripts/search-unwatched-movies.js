@@ -14,7 +14,7 @@ define(function(require) {
 				var filteredWatched = _.filter(collectionsRef, function(obj) {
 					if (obj.Watched === false) {
 						return obj;
-					}
+					} 
 				});
 				deferred.resolve(filteredWatched);
 				console.log("FilteredWatched", filteredWatched);

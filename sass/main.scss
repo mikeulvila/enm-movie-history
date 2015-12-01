@@ -85,6 +85,10 @@ nav.navbar {
   margin: 7px 0 25px 27px;
 }
 
+.rating-container-div {
+  margin: 7px 0 25px 14px;
+}
+
 
 // login splash page
 .wrapper {
@@ -179,14 +183,17 @@ form button:hover {
   position: absolute;
   margin-left: 170px;
   margin-top: 4px;
+  position: absolute;
+  top: 0px;
+  z-index: 2;
 }
-.movie-box {
+
+#movie-box {
   position: relative;
+  z-index: 1;
 }
 
-
-//modal
-#myModalLabel {
-  font-weight: 900;
+#movie-parent{
+  position: relative;
 }
 

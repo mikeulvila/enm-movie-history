@@ -6,6 +6,8 @@ define(function(require) {
 	//deletes movie from user's firebase collection
 	return function (userid, movieID) {
 		var ref = new Firebase("https://movie-history-enm.firebaseio.com/collections/" + userid + "/" + movieID);
-			ref.remove();
+			ref.update({
+		      "deleted" : true
+		    });
 		};
 });

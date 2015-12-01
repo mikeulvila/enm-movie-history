@@ -206,6 +206,7 @@ define(function(require) {
 
   //----- DELETE MOVIE FROM COLLECTION ------//
   $(document).on('click', '.glyphicon-remove', function(event) {
+    console.log("you clicked remove");
     //target movie and user ids
     var thisMovie = event.target.id;
     console.log("this movie", thisMovie);
@@ -217,6 +218,7 @@ define(function(require) {
     populateAllPage(userID)
       .then(function(data) {
           var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
+          console.log("allUserMovies", allUserMovies);
           var sortedResults = _.sortBy(allUserMovies, "Title");
           getposter.requestData(sortedResults);
     });
