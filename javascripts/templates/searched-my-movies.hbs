@@ -4,12 +4,12 @@
 		<div class="col-sm-3">
         {{#if Type}}
             <div id="movie-parent">
-                <div id="movie-box" class="img" data-toggle="modal" data-target=".{{imdbID}}" style="background-image: url({{url}})">
+                <div id="movie-box" class="img" data-toggle="modal" data-target=".{{imdbID}}" style=""><img class="mvimg" src="{{url}}" alt="{{Title}} - {{Year}}">
                 </div>
             </div>
             {{else}}
             <div id="movie-parent">
-                <div id="movie-box" class="img" data-toggle="modal" data-target=".{{imdbID}}" style="background-image: url({{url}})">
+                <div id="movie-box" class="img" data-toggle="modal" data-target=".{{imdbID}}" style=""><img class="mvimg" src="{{url}}" alt="{{Title}} - {{Year}}">
                 </div>
                 <a href="#" class="x-icon">
                     <span id="{{imdbID}}" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
