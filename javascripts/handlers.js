@@ -186,7 +186,6 @@ define(function(require) {
   //********************** STAR RATING ***********************
   $(document).on('rating.change', function(event, starValue) {
 
-    console.log("starValue", starValue);
     console.log("event.target", event.target);
     starValue = parseInt(starValue);
     var userid = userLogin.getUid();

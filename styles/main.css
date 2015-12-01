@@ -152,6 +152,9 @@ form button {
 form button:hover {
   background-color: #f5f7f9; }
 
+.col-sm-3 {
+  text-align: center; }
+
 .x-icon {
   font-family: Helvetica;
   font-weight: 900;
@@ -159,7 +162,7 @@ form button:hover {
   font-size: 25px;
   text-decoration: none;
   position: absolute;
-  margin-left: 170px;
+  margin-left: 55px;
   margin-top: 4px;
   position: absolute;
   top: 0px;
@@ -170,6 +173,12 @@ form button:hover {
   z-index: 1; }
 
 #movie-parent {
-  position: relative; }
+  position: relative;
+  margin: 0 0 0 14%; }
+
+.mvimg {
+  width: 200px;
+  height: 300px;
+  border-radius: 4px; }
 
 /*# sourceMappingURL=main.css.map */
