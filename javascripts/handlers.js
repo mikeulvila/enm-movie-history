@@ -147,7 +147,9 @@ define(function(require) {
     var value = $("#search-field").val();
     console.log("movieID", movieID);
     console.log("userid", userid);
-      
+     
+    //on click, app checks current view state and repopulates
+    //current page accordingly:  
     if (viewState === "all") {  
       watchedButton(userid, movieID);
       populateAllPage(userid)
@@ -185,6 +187,8 @@ define(function(require) {
     var value = $("#search-field").val();
     console.log("this user", userID);
 
+    //on click, app checks current view state and repopulates
+    //current page accordingly: 
     if (viewState === "all") {  
       //delete movie from firebase
       deleteMovie(userID, thisMovie);
@@ -199,7 +203,6 @@ define(function(require) {
     if (viewState === "searchResults") {
      //delete movie from firebase
       deleteMovie(userID, thisMovie);
-
       searchAll(userID, value);
     };
 
