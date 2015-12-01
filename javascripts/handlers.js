@@ -21,16 +21,21 @@ define(function(require) {
   var searchAll = require("search-all");
 
   var viewState = "all";
-  var currentUserID = userLogin.getUid();
+  var slider = require("slider");
 
-  // console.log("currentUserID", currentUserID);
 
-  // var fbListenerRef = new Firebase("https://movie-history-enm.firebaseio.com/collections/" + currentUserID);
-
-  // fbListenerRef.on("value", function() {
-  //   console.log("fb value change!!");
-  // })
-
+  //SLIDER
+  $("#ex6").slider();
+  $("#ex6").on("slide", function(slideEvt) {
+    console.log("slide value", slideEvt.value);
+    var userid = userLogin.getUid();
+      favoriteMovies(userid, slideEvt.value)
+        .then(function(data) {
+          var sortedResults = _.sortBy(data, "Title");
+          getposter.requestData(sortedResults);
+        });
+    $("#ex6SliderVal").text(slideEvt.value);
+  });
 
     // button to register new user
     $("#register-button").click(function(event) {
@@ -125,9 +130,8 @@ define(function(require) {
   //********************** STAR RATING ***********************
   $(document).on('rating.change', function(event, starValue) {
 
-    console.log("starValue", starValue);
     console.log("event.target", event.target);
-
+    starValue = parseInt(starValue);
     var userid = userLogin.getUid();
     var movieID = event.target.id;
     console.log("movieID", movieID);
@@ -276,20 +280,6 @@ define(function(require) {
           getposter.requestData(sortedResults);
         });
     });
-    //--favorites page
-    $("#favorites-filter-button").click(function() {
-      console.log("clicked favorites");
-      var userid = userLogin.getUid();
-      favoriteMovies(userid)
-        .then(function(data) {
-          var sortedResults = _.sortBy(data, "Title");
-          getposter.requestData(sortedResults);
-        });
-    });
-
-
-
-
 
 
 }); // end define function
