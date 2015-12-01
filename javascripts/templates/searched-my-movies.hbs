@@ -18,7 +18,7 @@
 			<button id="{{imdbID}}" poster="{{url}}" class="add-movie-to-collection">Add</button>
 			{{else}}
 				{{#if Watched}}
-				<input id="{{imdbID}}" poster="{{url}}" class="rating" data-min="0" data-max="5" data-step="1" data-show-clear="false" data-show-caption="false" data-size="xs" value="{{Rating}}">
+				<input id="{{imdbID}}" poster="{{url}}" class="rating" data-min="0" data-max="10" data-step="1" data-show-clear="false" data-show-caption="false" data-size="xs" value="{{Rating}}">
 				{{else}}
 				<button id="{{imdbID}}" poster="{{url}}" class="watched">Watched</button>
 				{{/if}}

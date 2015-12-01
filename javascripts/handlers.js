@@ -18,7 +18,20 @@ define(function(require) {
   var unwatchedMovies = require("search-unwatched-movies");
   var favoriteMovies = require("search-favorite-movies");
   var deleteMovie = require("delete-movie-from-my-collection");
+  var slider = require("slider");
 
+  //SLIDER
+  $("#ex6").slider();
+  $("#ex6").on("slide", function(slideEvt) {
+    console.log("slide value", slideEvt.value);
+    var userid = userLogin.getUid();
+      favoriteMovies(userid, slideEvt.value)
+        .then(function(data) {
+          var sortedResults = _.sortBy(data, "Title");
+          getposter.requestData(sortedResults);
+        });
+    $("#ex6SliderVal").text(slideEvt.value);
+  });
 
     // button to register new user
     $("#register-button").click(function(event) {
@@ -175,7 +188,7 @@ define(function(require) {
 
     console.log("starValue", starValue);
     console.log("event.target", event.target);
-
+    starValue = parseInt(starValue);
     var userid = userLogin.getUid();
     var movieID = event.target.id;
     console.log("movieID", movieID);
@@ -266,20 +279,6 @@ define(function(require) {
           getposter.requestData(sortedResults);
         });
     });
-    //--favorites page
-    $("#favorites-filter-button").click(function() {
-      console.log("clicked favorites");
-      var userid = userLogin.getUid();
-      favoriteMovies(userid)
-        .then(function(data) {
-          var sortedResults = _.sortBy(data, "Title");
-          getposter.requestData(sortedResults);
-        });
-    });
-
-
-
-
 
 
 }); // end define function
