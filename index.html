@@ -5,6 +5,8 @@
 	  <meta charset="utf-8">
 	  <title>ENM Movie History</title>
 	  <link rel="stylesheet" type="text/css" href="lib/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	  <link rel="stylesheet" type="text/css" href="lib/bower_components/bootstrap-star-rating/css/star-rating.min.css">
+	  <link rel="stylesheet" type="text/css" href="lib/bower_components/seiyria-bootstrap-slider/css/bootstrap-slider.css">
 	  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800|Ubuntu' rel='stylesheet' type='text/css'>
 	  <link rel="stylesheet" type="text/css" href="styles/main.css">
 	</head>
@@ -20,6 +22,11 @@
 						<button id="register-button">Register</button>
 						<button id="login-button">Login</button>
 					</form>
+					<!-- ALERT BOX -->
+					<div id="alert" class="alert" role="alert">
+         				<h4 id="alert-title">You are not logged in</h4>
+        				<p id="alert-detail"></p>
+    				</div>
 				</div>
 			</div>
 		</div>
@@ -39,16 +46,17 @@
 					        <span class="icon-bar"></span>
 					        <span class="icon-bar"></span>
 					    </button>
-					    <a class="navbar-brand" href="#">Brand</a>
 				    </div>
 		
 				    <!-- Collect the nav links, forms, and other content for toggling -->
 				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav">
-							<li id="find-movies-button"><a href="#">Find Movies</a></li>
-							<li id="search-my-movies-button"><a href="#">Search My Movies</a></li>
-						</ul>
-				     
+						<form class="navbar-form navbar-left" role="search">
+					        <input type="text" id="search-field" class="form-control" placeholder="Search movies...">
+					    </form>
+				        <div id="no-search-results" class="alert alert-danger navbar-left fade in" style="display:none">
+				        	<a id="close-warning" href="#">&times;</a>
+								<strong>Warning:</strong> No matching results.
+						</div>
 				        <ul class="nav navbar-nav navbar-right">
 					        <li id="logout-button"><a href="#">Logout</a></li>
 				        </ul>
@@ -57,74 +65,30 @@
 			</nav>
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-3">
+					<div class="col-sm-2">
 						<ul class="navbar-nav filter-links">
+							<li id="all-filter-button"><a href="#">All</a></li>
+							<li> | </li>
 							<li id="watched-filter-button"><a href="#">Watched</a></li>
 							<li> | </li>
 							<li id="unwatched-filter-button"><a href="#">Unwatched</a></li>
+							<li> | </li>
 						</ul>
 					</div>
+					<div class="col-sm-4">
+						<input id="ex6" type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0"/&t>
+						<span id="ex6CurrentSliderValLabel" style="margin: 15px">Filter By Star Rating: <span id="ex6SliderVal">0</span></span>
+					</div>
 				</div>
-
-				<!-- FIND MOVIE MODAL -->
-
-				<div id="find-movies-modal" class="modal fade">
-				    <div class="modal-dialog">
-				        <div class="modal-content">
-					        <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						        <h4 class="modal-title">Find Movies</h4>
-					        </div>
-					        <div class="modal-body">
-						        <form role="search">
-							        <div class="form-group">
-							            <input id="find-movies-search" type="text" class="form-control" placeholder="Find">
-							        </div>
-							    </form>
-					        </div>
-					        <div class="modal-footer">
-						        <button id="submit-find-button" type="button" class="btn btn-primary">Find</button>
-					        </div>
-					    </div><!-- /.modal-content -->
-				    </div><!-- /.modal-dialog -->
-				</div><!-- /.modal -->
-
-				<!-- SEARCH MY MOVIES MODAL -->
-
-				<div id="search-my-movies-modal" class="modal fade">
-				    <div class="modal-dialog">
-				        <div class="modal-content">
-					        <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						        <h4 class="modal-title">Search My Movies</h4>
-					        </div>
-					        <div class="modal-body">
-						        <form role="search">
-							        <div class="form-group">
-							            <input id="my-movies-search" type="text" class="form-control" placeholder="Search">
-							        </div>
-							    </form>
-					        </div>
-					        <div class="modal-footer">
-						        <button id="submit-search-my-movies" type="button" class="btn btn-primary">Search</button>
-					        </div>
-					    </div><!-- /.modal-content -->
-				    </div><!-- /.modal-dialog -->
-				</div><!-- /.modal -->
-
-
 
 	
 				<!-- DYNAMICALLY LOADED CONTENT below -->
 				<div class="dynamic">
-					<div id="template-container" class="row">
 		
+					<div id="template-container" class="row"></div>
 
-
-
-					</div>
-				</div>
-			</div>
+				</div><!-- -end .dynamic -->
+			</div><!-- -end .container-fluid -->
 		</div>
 
 

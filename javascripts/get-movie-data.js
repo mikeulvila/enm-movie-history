@@ -2,6 +2,9 @@ define(function(require) {
 	var $ = require("jquery");
 	var Q = require("q");
 
+	// this function searches comprehensive data API for all 
+	// movies containing search value (eg. search of 'christmas' 
+	// returns all movies with 'christmas' in the title)
 
 	return {
 		requestData: function(searchValue) {

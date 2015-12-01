@@ -3,6 +3,20 @@ define(function(require) {
 	var firebase = require("firebase");
 	var userLogin = require("existing-user-login");
 
+	//alert div
+	var alertBox = $('#alert');
+
+	//alert object function
+	function showAlert(opts) {
+        var title = opts.title;
+        var detail = opts.detail;
+        var className = 'alert ' + opts.className;
+
+        alertBox.removeClass().addClass(className);
+        alertBox.children('#alert-title').text(title);
+        alertBox.children('#alert-detail').text(detail);
+    }
+
 	return {
 		createNewUser: function(newEmail, newPassword) {
 			console.log("got in");
@@ -12,7 +26,13 @@ define(function(require) {
 			  password : newPassword
 			}, function(error, authData) {
 			  if (error) {
-			    console.log("Error creating user:", error);
+			    console.log("Error creating user:", error.message);
+			    //alert object function
+			    showAlert({
+                	title: error.code,
+                	detail: error.message,
+                	className: 'alert-danger'
+            	});
 			  } else {
 			    console.log("Successfully created user account with uid:", authData.uid);
 			    // create object and new firebase ref to update database with user info

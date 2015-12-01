@@ -5,22 +5,20 @@ define(function(require) {
 	var firebase = require("firebase");
 
 
-	return function (userid, searchVal) {
+	return function (userid) {
 	var deferred = Q.defer();
 			var ref = new Firebase("https://movie-history-enm.firebaseio.com/collections/" + userid);
 			ref.on("value", function(snapshot) {
 				var collectionsRef = snapshot.val();
-				var filtered = _.filter(collectionsRef, function(obj) {
-					if (_.includes(obj.Title.toLowerCase(), searchVal.toLowerCase())) {
-						console.log("obj includes", obj.Title);
+				console.log("collectionsRef", collectionsRef);
+				var filteredWatched = _.filter(collectionsRef, function(obj) {
+					if (obj.Watched) {
 						return obj;
 					}
 				});
-				console.log("FilteredArray", filtered);
-				deferred.resolve(filtered);
+				deferred.resolve(filteredWatched);
+				console.log("FilteredWatched", filteredWatched);
 			});
 			return deferred.promise;
-		};
+		};//--end return function
 });
-
-

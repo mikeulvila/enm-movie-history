@@ -6,10 +6,14 @@ require.config({
     'hbs': '../lib/bower_components/require-handlebars-plugin/hbs',
     'q': '../lib/bower_components/q/q',
     'bootstrap': '../lib/bower_components/bootstrap/dist/js/bootstrap.min',
-    'firebase': '../lib/bower_components/firebase/firebase'
+    'firebase': '../lib/bower_components/firebase/firebase',
+    'stars': '../lib/bower_components/bootstrap-star-rating/js/star-rating.min',
+    'slider': '../lib/bower_components/seiyria-bootstrap-slider/js/bootstrap-slider'
   },
   shim: {
     'bootstrap': ['jquery'],
+    'stars': ['bootstrap'],
+    'slider': ['bootstrap'],
     'firebase': {
       exports: 'Firebase'
     }
@@ -20,15 +24,6 @@ require(
   
   ["dependencies"], 
   function(dependencies) {
-
-    /*
-      You can choose to use the REST methods to interact with
-      Firebase, or you can use the Firebase API with event
-      listeners. It's completely up to each team.
-
-      If you choose the former, I created two boilerplate modules
-      named `potential-mates.js`, and `add-favorite.js`.
-     */
 
 
   }
