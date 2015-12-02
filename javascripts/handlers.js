@@ -29,11 +29,45 @@ define(function(require) {
   $("#ex6").on("slide", function(slideEvt) {
     console.log("slide value", slideEvt.value);
     var userid = userLogin.getUid();
-      favoriteMovies(userid, slideEvt.value)
+    var value = $("#search-field").val();
+
+    if (slideEvt.value === 0) {
+      console.log("slide 0 viewState", viewState);
+      if (viewState === "all") {  
+      populateAllPage(userid)
         .then(function(data) {
-          var sortedResults = _.sortBy(data, "Title");
+          var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
+          var sortedResults = _.sortBy(allUserMovies, "Title");
           getposter.requestData(sortedResults);
         });
+      }
+
+      if (viewState === "searchResults") {
+        searchAll(userid, value);
+      }
+
+      if (viewState === "unwatched") {
+        unwatchedMovies(userid)
+          .then(function(data) {
+            var sortedResults = _.sortBy(data, "Title");
+            getposter.requestData(sortedResults);
+          });
+        }
+      if (viewState === "watched") {
+        console.log("firing watched view!");
+        watchedMovies(userid)
+          .then(function(data) {
+            var sortedResults = _.sortBy(data, "Title");
+            getposter.requestData(sortedResults);
+          });
+        }
+      } else {
+        favoriteMovies(userid, slideEvt.value)
+          .then(function(data) {
+            var sortedResults = _.sortBy(data, "Title");
+            getposter.requestData(sortedResults);
+          });
+      }
     $("#ex6SliderVal").text(slideEvt.value);
   });
 
@@ -110,18 +144,7 @@ define(function(require) {
 
           if (viewState === "searchResults") {
             searchAll(userid, value);
-          };
-
-          // if (viewState === "all") {
-          //   populateAllPage(userid)
-          //     .then(function(data) {
-          //       var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
-          //       var sortedResults = _.sortBy(allUserMovies, "Title");
-          //       getposter.requestData(sortedResults);
-          //     });
-          // };
-
-          
+          }
 
         })
         .fail(function(error){
@@ -165,12 +188,12 @@ define(function(require) {
           var sortedResults = _.sortBy(allUserMovies, "Title");
           getposter.requestData(sortedResults);
         });
-      };
+      }
 
     if (viewState === "searchResults") {
       watchedButton(userid, movieID);
       searchAll(userid, value);
-    };
+    }
 
     if (viewState === "unwatched") {
       watchedButton(userid, movieID);
@@ -179,7 +202,7 @@ define(function(require) {
           var sortedResults = _.sortBy(data, "Title");
           getposter.requestData(sortedResults);
         });
-    };
+    }
   });//--end watched button
 
 
@@ -205,13 +228,13 @@ define(function(require) {
           var sortedResults = _.sortBy(allUserMovies, "Title");
           getposter.requestData(sortedResults);
         });
-      };
+      }
 
     if (viewState === "searchResults") {
      //delete movie from firebase
       deleteMovie(userID, thisMovie);
       searchAll(userID, value);
-    };
+    }
 
     if (viewState === "unwatched") {
       //delete movie from firebase
@@ -221,7 +244,7 @@ define(function(require) {
           var sortedResults = _.sortBy(data, "Title");
           getposter.requestData(sortedResults);
         });
-      };
+      }
 
     if (viewState === "watched") {
       //delete movie from firebase
@@ -231,7 +254,7 @@ define(function(require) {
           var sortedResults = _.sortBy(data, "Title");
           getposter.requestData(sortedResults);
         });
-      };
+      }
 
   });//--end delete movie from collection
 
@@ -250,6 +273,7 @@ define(function(require) {
   //********* NAV LINK EVENT HANDLERS ************//
     // --all page
     $("#all-filter-button").click(function() {
+      $("#slider").show();
       viewState = "all";
       var userid = userLogin.getUid();
       populateAllPage(userid)
@@ -262,6 +286,7 @@ define(function(require) {
     // --watched page
     $("#watched-filter-button").click(function() {
 
+      $("#slider").show();
       viewState = "watched";
 
       console.log("clicked watched");
@@ -274,7 +299,8 @@ define(function(require) {
     });
     //--unwatched page
     $("#unwatched-filter-button").click(function() {
-      viewState = "unwatched"
+      viewState = "unwatched";
+      $("#slider").hide();
       console.log("clicked unwatched");
       var userid = userLogin.getUid();
       unwatchedMovies(userid)
