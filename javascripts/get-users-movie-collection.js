@@ -7,6 +7,7 @@ define(function(require) {
 		
 	return function (userid) {
 		var deferred = Q.defer();
+		console.log("userid argument", userid);
 		var ref = new Firebase("https://movie-history-enm.firebaseio.com/collections/" + userid);
 			ref.on("value", function(snapshot) {
 				var collectionsRef = snapshot.val();
