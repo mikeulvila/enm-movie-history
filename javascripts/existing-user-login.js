@@ -39,6 +39,7 @@ define(function(require) {
 			    currentUserId = authData.uid;
 			    $("#main-page").show();
 				$("#login-page").hide();
+				console.log("currentUserId", currentUserId);
 				populateAllPage(currentUserId)
         			.then(function(data) {
           				var allUserMovies = Object.keys( data ).map(function(key) { return data[key];});
@@ -60,8 +61,13 @@ define(function(require) {
                 	detail: "",
                 	className: 'alert'
             	});
+            	$("#search-field").val("");
+      			$("#user-email").val("");
+      			$("#user-password").val("");
 				$("#main-page").hide();
 				$("#login-page").show();
+				$("#template-container").html("");
+
 
 			}
 		},

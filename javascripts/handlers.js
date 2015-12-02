@@ -56,6 +56,9 @@ define(function(require) {
     // button to log out
     $("#logout-button").click(function(event) {
       userLogin.logUserOut();
+      
+
+
     });
 
   	// -------- FIND MOVIES Nav button, search input in modal and submit search value ------//
